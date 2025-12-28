@@ -1,0 +1,15 @@
+[33mcommit ea082ed8d7501aa4d9183ca828d7c54f2d2f597a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Aima <shabrangfatemeh83@gmail.com>
+Date:   Sun Dec 28 17:23:32 2025 +0330
+
+    new changes test.py
+
+[1mdiff --git a/test.py b/test.py[m
+[1mindex 4f2b830..a07cf1e 100644[m
+[1m--- a/test.py[m
+[1m+++ b/test.py[m
+[36m@@ -1,2 +1,2 @@[m
+[31m-def add (a, b):[m
+[31m-    return a + b[m
+[32m+[m[32mdef greet(name):[m
+[32m+[m[32m    print(name, "hello")[m
