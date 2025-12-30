@@ -8,7 +8,8 @@ while True:
     print("random generated temp:", engine_temp)
     if i > 100:
         print("WARNING! down engine_temp")
+        break
 time.sleep(5)
-print("after 5 sec engine_temp")
+print("after 5 sec ...\n")
     
 
