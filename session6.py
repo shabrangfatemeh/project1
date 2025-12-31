@@ -2,7 +2,7 @@ import json
 
 
 driver_name = input("what is your name?:")
-print("hi, wellcom {driver_name}")
+print(f"hi, wellcom {driver_name}")
 
 battery_driver = int(input("how much percentage of charge was added?: "))
 print("battery_driver", battery_driver)
@@ -13,5 +13,5 @@ def add(battery_added_percent):
 
     print("report")
     print("status: data savedto file successfully!")
-    
-add(battery_added_percent) 
+
+add(battery_driver) 
