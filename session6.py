@@ -4,21 +4,21 @@ import json
 driver_name = input("what is your name?:")
 print(f"hi, wellcom {driver_name}")
 
-current_battery = int(input("how much percentage of charge was added?: "))
-print("battery_driver", current_battery)
+charge_to_add = int(input("how much charge are you adding?: "))
+print("battery_driver", charge_to_add)
 
-def add(battery_added_percent):
-    increased = battery_added_percent + 85
-    print(f"current_battery:", {increased})
-
-    print("report")
+def update_car_system(added_amount):
     with open("car_report.json", "r") as f:
-        data = json.load(f)
+         data = json.load(f)
+    current_status = data["battery"]
+    new_total =  current_status + added_amount 
+    data["battery"] = new_total
     data["driver"] = driver_name
-    data["base_battery"] = 85
-    data["added_battery"] = increased
+    data["min_threshold"] = 20
     with open("car_report.json", "w") as f:
         json.dump(data, f, indent=4) 
-        print("status: data saved to file successfully!")
+    print(f"update successfully! battery went from {current_status}% to {new_total}%")
+    if new_total <= 20:
+        print("WARNING!: battery is at or below minium level!")
 
-add(current_battery) 
+update_car_system(charge_to_add) 
