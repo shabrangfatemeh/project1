@@ -12,7 +12,7 @@ def add(battery_added_percent):
     print(f"current_battery:", {increased})
 
     print("report")
-    car_data = {"driver_name": name, "increased": battery_added_percent + 85}
+    car_data = {"name":driver_name, "increased": battery_added_percent + 85}
     with open("car_report.json", "w") as f:
     json.dump(car_data, f, indent=4) 
     print("status: data savedto file successfully!")
