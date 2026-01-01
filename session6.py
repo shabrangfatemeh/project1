@@ -10,7 +10,7 @@ print("battery_driver", charge_to_add)
 def update_car_system(added_amount):
     with open("car_report.json", "r") as f:
          data = json.load(f)
-    current_status = data["battery"]
+    current_status = data["min_threshold"]
     new_total =  current_status + added_amount 
     data["battery"] = new_total
     data["driver"] = driver_name
