@@ -6,9 +6,9 @@ time_string = i.strftime("%H:%M:%S")
 
 car_data = {"car_id": "bot_02", 
             "status": {
-             "current_mode": "idle" 
-             "is_active": true, 
-             "charging": false
+             "current_mode": "idle", 
+             "is_active": True, 
+             "charging": False
             }, 
             "battery": { 
              "min_capacity": 15,
@@ -19,12 +19,12 @@ car_data = {"car_id": "bot_02",
             "max_spead": 350,
             "engine_temp": 150,
             "fluids": {
-             "oil_level": 75
+             "oil_level": 75,
              "water_level": 90   
             },
             "location": {
-             "latitude": 35.6892
-             "longitude": 51.3890
+             "latitude": 35.6892,
+             "longitude": 51.3890,
              "last_updated": "time_string"   
             },
             "diagnostics":{
