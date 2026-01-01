@@ -1,5 +1,9 @@
 #ماشینی کهزمان رسیدن و خرابی و روغن وآب داره
 import json
+from datetime import datetime
+i = datetime.now
+time_string = i.strftime("%H:%M:%S")
+
 car_data = {"car_id": "bot_02", 
             "status": {
              "current_mode": "idle" 
@@ -28,3 +32,8 @@ car_data = {"car_id": "bot_02",
             },
             "faults": []
             }
+report = json.dumps(car_data, time_string, indent=4)
+print("--- copy the json below and send it to me ---")
+whit open ("car_report2_json", "w") as f:
+json.dumps (car_data, time_string, f, hndent=4)
+print("--- status: data saved to file successfully! ---")
