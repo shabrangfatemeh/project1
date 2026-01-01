@@ -38,6 +38,6 @@ with open ("car_report2_json", "w") as f:
     json.dump (car_data, f, indent=4)
     print("--- status: data saved to file successfully! ---")
 last_time_str = car_data["location"]["last_updated"]
-translated_time = datetime.strptime(last_time_str, "%Y-%M-%DT%H:%M:%SZ")
+translated_time = datetime.strptime(last_time_str, "%Y-%M-%D %H:%M:%S")
 diff = datetime.now() - translated_time
 print(f"{diff}:")
