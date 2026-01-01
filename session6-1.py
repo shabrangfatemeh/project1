@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 i = datetime.now()
-time_string = i.strftime("%H:%M:%S")
+time_string = i.strftime("%Y-%m-%d %H:%M:%S")
 
 car_data = {"car_id": "bot_02", 
             "status": {
@@ -25,7 +25,7 @@ car_data = {"car_id": "bot_02",
             "location": {
              "latitude": 35.6892,
              "longitude": 51.3890,
-             "last_updated": "time_string"   
+             "last_updated": time_string   
             },
             "diagnostics":{
              "errors": []   
