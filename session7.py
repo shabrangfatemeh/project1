@@ -9,9 +9,16 @@ status = "car_moving"
 
 while battery > 0:
     print(f"current battery: %{battery}")
-    if engine_temp >= 110:
+    if engine_temp >= 115:
         print("STOP!")
         break
+    if battery == 50:
+       print("battry is helf or less: ")
+    order_driver = input("conteinu(y) or stop(s)?")
+    print("y" or "s")   
+    if order_driver  == "s":
+       print("STOPE!")
+       break
 
     if battery <= min_threshold:
         print("LOW BATTERY! please find a charging ststion")
