@@ -4,10 +4,13 @@ with open("car_report.json", "r") as f:
 
 min_threshold = data["min_threshold"]
 battery = data["battery"] 
+engine_temp = data["engine_temp"]
 status = "car_moving"
 
 while battery > 0:
     print(f"current battery: %{battery}")
+    if engine_temp >= engine_temp:
+        print("STOP!")
 
     if battery <= min_threshold:
         print("LOW BATTERY! please find a" \
@@ -24,3 +27,4 @@ data["battery"] = battery
 with open("car_report.json", "w")as f:
     json.dump(data, f, indent=4)
 print("status: data saved to file successfully!")
+                                                                                                   
