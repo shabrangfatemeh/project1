@@ -1,3 +1,11 @@
+import json
+white open(""    "r") as f:
+    json.loads() 
+    print("    json file to send me")
+json.load(  , f, indent=4)
+
+
+
 status = "car_moving"
 battery = 25
 while battery > 0:
@@ -5,3 +13,9 @@ while battery > 0:
     battery = battery - 5
     if  battery == 0:
         print("CAR STOPPED! need charges.")
+
+        
+white open("  "   "w")as f:
+    json.dumps()
+    print("")
+json.dump(    , f, indent=4)
