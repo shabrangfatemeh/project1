@@ -10,11 +10,12 @@ while battery >= 5:
     print(f"current battery: {battery}%")
     if engine_temp >= engine_temp:
         print("stop now!")
+        break
     if battery <= min_capacity:
         print("LOW BATTERY, please find charging station")
         print("low battery 10% every 100 km")
         battery = battery - 10
-    if battery = 0:
+    if battery == 0:
        battery = 0
        print("STOP CAR! NO CHARG")
     
