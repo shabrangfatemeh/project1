@@ -10,8 +10,9 @@ while battery > 0:
     print(f"current battery: %{battery}")
 
     if battery <= min_threshold:
-    print("LOW BATTERY! please find e charging ststion")
-    print("status: driving after 100 km, the battery low %5.")
+        print("LOW BATTERY! please find a" \
+        " charging ststion")
+        print("status: driving after 100 km, the battery low %5.")
 
     battery = battery - 5
 
