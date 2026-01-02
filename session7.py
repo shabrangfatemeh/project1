@@ -1,5 +1,5 @@
 import json
-with open("car_report.json" "r") as f:
+with open("car_report.json", "r") as f:
     data = json.load(f)
 
 min_threshold = data["min_threshold"]
@@ -21,6 +21,6 @@ while battery > 0:
         print("CAR STOPPED! need charges.")
 
 data["battery"] = battery
-with open("car_report.json""w")as f:
+with open("car_report.json", "w")as f:
     json.dump(data, f, indent=4)
 print("status: data saved to file successfully!")
