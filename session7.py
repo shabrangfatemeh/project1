@@ -11,6 +11,7 @@ while battery > 0:
     print(f"current battery: %{battery}")
     if engine_temp >= engine_temp:
         print("STOP!")
+        break
 
     if battery <= min_threshold:
         print("LOW BATTERY! please find a" \
