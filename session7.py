@@ -14,7 +14,7 @@ while battery > 0:
         break
     if battery == 50:
        print("battry is helf or less: ")
-    order_driver = input("conteinu(y) or stop(s)?")
+    order_driver = input("continue(y) or stop(s)?")
     print("y" or "s")   
     if order_driver  == "s":
        print("STOPE!")
