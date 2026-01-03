@@ -27,11 +27,11 @@ while battery  >= 10:
     print(f"engine temperature: {engine_temp}")
     battery = battery - 5
     engine_temp = engine_temp + 10
-    if engine_temp > 150:
+    if engine_temp > 250:
         print("DANGER! STOP!")
         break
-    choice = input("do you want to stope very 100 km? (y/n)")
-    if passenger_name == "n":
+    choice = input("do you want to stope very 100 km? (y/n):")
+    if  choice == "y": 
         print("stop!")
         break
     if battery >= 15:
