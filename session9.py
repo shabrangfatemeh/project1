@@ -25,11 +25,13 @@ while battery  >= 10:
     print("continue after 2 sec") 
     print("battery current_level")
     print("every 100 km, low battery 5%")
+    battery = battery - 5
+    engine_temp = engine_temp + 10
     if engine_temp > 150:
         print("DANGER! STOP!")
         break
-    passenger_name = input("do you want to stope very 100 km? (y) or (n)")
-    if passenger_name == "y":
+    passenger_name = input("do you want to stope very 100 km? (y/n)")
+    if passenger_name == "n":
         print("stop!")
         break
     if battery >= 15:
