@@ -14,10 +14,15 @@ car_data = {"car_id": "bot_02",
              "min_capacity": 15,
              "max_copacity": 250,
              "current_level": 85,
+             "BATTERY_DROP":5,
+             "CRETICAL_BATTERY": 20,
              "unit": "percentage"
             },
             "max_spead": 350,
-            "engine_temp": 150,
+            "engine_temp": {
+             "TEMP_RISE":10,
+             "CRITICAL_TEMP": 200
+            }, 
             "fluids": {
              "oil_level": 75,
              "water_level": 90   
