@@ -38,6 +38,6 @@ while battery  >= 10:
         print("EMERGENCY! please find a charging station.")
 data["battery"]["current_level"] = battery
 data["engine_temp"] = engine_temp
-with open("car_report2_json" "w") as f:
+with open("car_report2_json", "w") as f:
     json.dump(data, f, indent=4)
 print("status: data save to file successfully!")
