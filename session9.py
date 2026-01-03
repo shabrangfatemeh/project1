@@ -17,7 +17,9 @@ print("hi, wellcome passenger_name")
 time.sleep(1)
 print("continue after 2 sec")
 battery = data["battery"]["current_level"]
-while True:
+min_capacity = data["battery"]
+while battery  >= min_capacity:
+    print("every 100 km, low battery 5%")
     print("battery current_level")
 
 
