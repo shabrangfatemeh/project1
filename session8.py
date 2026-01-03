@@ -6,8 +6,10 @@ try:
 except FileNotFoundError:
     print("no report found!enter bot_02 initializing default data ...")
     data = {
+        "battery": {
         "min_capacity": 20,
-        "battery": 60,
+        "battery": 60
+        },
         "engine_temp": 150,
     }
        
