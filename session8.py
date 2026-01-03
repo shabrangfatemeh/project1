@@ -4,7 +4,12 @@ try:
     with open("car_report2_json", "r")as f:
         data = json.load(f)
 except FileNotFoundError:
-    print(" no report found!enter bot_02: {min_capacity = 20} and {battery = 60} and {engine_temp = 150}")
+    print("no report found!enter bot_02 initializing defaukt data ...")
+    data = {
+        "min_capacity": 20,
+        "battery": 60,
+        "engine_temp": 150,
+    }
        
 passenger_name = input("waht is your name? ")
 print(f"hi, wellcome. {passenger_name}")
