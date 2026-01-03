@@ -23,8 +23,8 @@ engine_temp = data["engine_temp"]
 while battery  >= 10:
     time.sleep(2)
     print("continue after 2 sec") 
-    print("battery current_level")
-    print("every 100 km, low battery 5%")
+    print(f"current battery: {battery}%")
+    print(f"engine temperature: {engine_temp}")
     battery = battery - 5
     engine_temp = engine_temp + 10
     if engine_temp > 150:
