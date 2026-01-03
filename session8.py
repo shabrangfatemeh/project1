@@ -4,7 +4,7 @@ try:
     with open("car_report2_json", "r")as f:
         data = json.load(f)
 except FileNotFoundError:
-    print("no report found!enter bot_02 initializing defaukt data ...")
+    print("no report found!enter bot_02 initializing default data ...")
     data = {
         "min_capacity": 20,
         "battery": 60,
