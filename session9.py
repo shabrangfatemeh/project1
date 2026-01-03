@@ -27,9 +27,14 @@ while battery  >= 10:
     if engine_temp > 150:
         print("DANGER! STOP!")
         break
+    passenger_name = input("do you want to stopevery 100 km? (y) or (n)")
+    if passenger_name == "y":
+        print("stop!")
+        break
     if battery >= 15:
         print("EMERGENCY! please find a charging station.")
-        
+
+
 
 
 
