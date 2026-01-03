@@ -15,8 +15,8 @@ except FileNotFoundError:
        
 passenger_name = input("waht is your name? ")
 print(f"hi, wellcome. {passenger_name}")
-min_capacity = data["min_capacity"]
-battery = data["battery"]
+min_capacity = data["battery"]
+battery = data["battery"]["current_level"]
 engine_temp = data ["engine_temp"]
 status = "moving"
 while battery >= 5:
@@ -40,7 +40,7 @@ while battery >= 5:
     
    
 data["passenger_name"] = passenger_name
-data["battery"] = battery
+data["battery"]["current_level"] = battery
 data ["engine_temp"] = engine_temp 
 with open("car_report2_json", "w")as f:
      json.dump(data, f, indent=4)
