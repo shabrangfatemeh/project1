@@ -1,10 +1,10 @@
 #با فایل 6-1 یکیه که همه درcar_report2_json هستن
+import json
 try:
-    import json
     with open("car_report2_json", "r")as f:
         data = json.load(f)
 except FileNotFoundError:
-    print("enter bot_02: {min_capacity = 20} and {battery = 60} and {engine_temp = 150}")
+    print(" no report found!enter bot_02: {min_capacity = 20} and {battery = 60} and {engine_temp = 150}")
        
 passenger_name = input("waht is your name? ")
 print(f"hi, wellcome. {passenger_name}")
