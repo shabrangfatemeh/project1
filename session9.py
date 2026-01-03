@@ -19,9 +19,11 @@ print("continue after 2 sec")
 battery = data["battery"]["current_level"]
 min_capacity = data["battery"]
 while battery  >= min_capacity:
-    print("every 100 km, low battery 5%")
-    print("battery current_level")
-
+time.sleep(2)
+print("continue after 3 sec") 
+print("battery current_level")
+print("every 100 km, low battery 5%")
+    
 
 
 
