@@ -18,13 +18,18 @@ time.sleep(1)
 print("continue after 2 sec")
 battery = data["battery"]["current_level"]
 min_capacity = data["battery"]
-while battery  >= min_capacity:
-time.sleep(2)
-print("continue after 3 sec") 
-print("battery current_level")
-print("every 100 km, low battery 5%")
-    
-
+engine_temp = data["engine_temp"]
+while battery  >= 10:
+    time.sleep(2)
+    print("continue after 3 sec") 
+    print("battery current_level")
+    print("every 100 km, low battery 5%")
+    if engine_temp > 150:
+        print("DANGER! STOP!")
+        break
+    if battery >= 15:
+        print("EMERGENCY! please find a charging station.")
+        
 
 
 
