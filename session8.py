@@ -2,6 +2,8 @@
 import json
 with open("car_report2_json", "r")as f:
     data = json.load(f)
+passenger_name = input("waht is your name? ")
+print(f"hi, wellcome. {passenger_name}")
 min_capacity = data["min_capacity"]
 battery = data["battery"]
 engine_temp = data ["engine_temp"]
@@ -11,6 +13,12 @@ while battery >= 5:
     if engine_temp >= engine_temp:
         print("stop now!")
         break
+    passenger_name = input("would you like to stope every 300 km?: (y) or (no)")
+    if passenger_name == "y": 
+        print("STOP!")
+        break
+    elif passenger_name != "no":
+        print("enter the distance you want stop?: ")
     if battery <= min_capacity:
         print("LOW BATTERY, please find charging station")
         print("low battery 10% every 100 km")
@@ -20,7 +28,7 @@ while battery >= 5:
        print("STOP CAR! NO CHARG")
     
    
-
+data["passenger_name"] = passenger_name
 data["battery"] = battery
 data ["engine_temp"] = engine_temp 
 with open("car_report2_json", "w")as f:
