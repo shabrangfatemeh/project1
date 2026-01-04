@@ -24,6 +24,8 @@ BATTERY_DROP = data ["battery"]["BATTERY_DROP"]
 min_capacity = data ["battery"]["min_capacity"]
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
+print("status current battery: ")
+print("status current engine_temp: ")
 #start while
 while min_capacity < 15:
     time.sleep(1)
@@ -40,14 +42,10 @@ while min_capacity < 15:
     if choes1 == "n":
         print("continue the way")    
 
-
-
-
-
-
-
-
-
+data ["engine_temp"]["MAX_TEMP"] = MAX_TEMP
+data ["engine_temp"]["TEMP_RISE"] = TEMP_RISE
+data ["battery"]["BATTERY_DROP"] = BATTERY_DROP
+data ["battery"]["min_capacity"] = min_capacity
 with open("car_report2_json", "w") as f:
 json.dump(data, f, indent=4)
 print("status: save to file successfully!:")
