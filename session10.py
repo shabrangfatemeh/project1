@@ -52,5 +52,5 @@ data ["engine_temp"]["TEMP_RISE"] = TEMP_RISE
 data ["battery"]["BATTERY_DROP"] = BATTERY_DROP
 data ["battery"]["min_capacity"] = min_capacity
 with open("car_report2_json", "w") as f:
-json.dump(data, f, indent=4)
+    json.dump(data, f, indent=4)
 print("status: save to file successfully!:")
