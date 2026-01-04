@@ -24,16 +24,18 @@ BATTERY_DROP = data ["battery"]["BATTERY_DROP"]
 min_capacity = data ["battery"]["min_capacity"]
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
-print("status current battery: ")
-print("status current engine_temp: ")
+print("status current battery: {current battery} ")
+print("status current engine_temp: {current engine_temp}")
 #start while
-while min_capacity < 15:
+while min_capacity > 15:
     time.sleep(1)
     print(f"the each stage {BATTERY_DROP}: ")
     time.sleep(1)
-    if MAX_TEMP > 210:
+    if TEMP_RISE > 210:
         print("EMERGENCY! URGENT STOP!")
         break
+    min_capacity = min_capacity - BATTERY_DROP
+    TEMP_RISE = TEMP_RISE + TEMP_RISE
     choes1 = input("do you whant to stops along the way?: (y/n)")
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
