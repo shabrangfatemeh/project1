@@ -10,7 +10,7 @@ except FileNotFoundError:
             "engine_temp": {
             "MAX_TEMP": 200,
             "TEMP_RISE": 10,
-            "CRITICAL_TEMP": 200
+            "LIMIT_TEMP": 200        #این به جای CRITICAL اومد
             },
             "battery": {
             "BATTERY_DROP": 5,
@@ -20,22 +20,25 @@ except FileNotFoundError:
 # variable
 MAX_TEMP = data ["engine_temp"]["MAX_TEMP"]
 TEMP_RISE = data ["engine_temp"]["TEMP_RISE"]
+current_temp = data["engine_temp"]["TEMP_RISE"]   #اینم اضافه کردیم تا بتوانم منطق IFدرست شود
 BATTERY_DROP = data ["battery"]["BATTERY_DROP"]
 min_capacity = data ["battery"]["min_capacity"]
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
-print("status current battery: {current battery} ")
-print("status current engine_temp: {current engine_temp}")
+#به دلیل نبود سنسور از مین و رایس استفاده کردم که در روز 11 اصلاح می شود
+print("status current battery: {min_capacity} ")
+print("status current engine_temp: {TEMP_RISE}")
 #start while
 while min_capacity > 15:
     time.sleep(1)
+    min_capacity = min_capacity - BATTERY_DROP
     print(f"the each stage {BATTERY_DROP}: ")
     time.sleep(1)
-    if TEMP_RISE > 210:
+     #برای دما حرفه ی تر عمل می کنیم
+    current_temp = current_temp + TEMP_RISE
+    if current_temp > 200:
         print("EMERGENCY! URGENT STOP!")
         break
-    min_capacity = min_capacity - BATTERY_DROP
-    TEMP_RISE = TEMP_RISE + TEMP_RISE
     choes1 = input("do you whant to stops along the way?: (y/n)")
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
