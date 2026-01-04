@@ -43,6 +43,7 @@ while min_capacity > 15:
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
         print("street 45 m")
+        print("       رسییم stop")
         break
     if choes1 == "n":
         print("continue the way")    
