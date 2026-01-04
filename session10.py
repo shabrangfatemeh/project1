@@ -27,7 +27,7 @@ passenger_car = input("what's your name?:")
 print(f"hi, welcome, {passenger_car}:")
 #به دلیل نبود سنسور از مین و رایس استفاده کردم که در روز 11 اصلاح می شود
 print("status current battery: {min_capacity} ")
-print("status current engine_temp: {TEMP_RISE}")
+print("status current engine_temp: {current_temp}")
 #start while
 while min_capacity > 15:
     time.sleep(1)
@@ -47,7 +47,7 @@ while min_capacity > 15:
     if choes1 == "n":
         print("continue the way")    
 
-data ["engine_temp"]["MAX_TEMP"] = MAX_TEMP
+data ["engine_temp"]["MAX_TEMP"] = current_temp
 data ["engine_temp"]["TEMP_RISE"] = TEMP_RISE
 data ["battery"]["BATTERY_DROP"] = BATTERY_DROP
 data ["battery"]["min_capacity"] = min_capacity
