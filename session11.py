@@ -37,8 +37,12 @@ while True:
 
     choes1 = input("Are you stopping along the way?(y/n): ")
     if choes1 == "y":
-       print("where do you stop?: ")
-      
+       stop_location = input("where do you stop?:")
+       print("f:stopping at {stop_location}... ")
+    break      
+    if choes1 =="n":
+        print("the way continue")
+        continue
 status["current_battery"] = battery
 status["current_temp"] = temp 
 with open("car_report2_json", "w") as f:
