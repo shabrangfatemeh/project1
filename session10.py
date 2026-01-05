@@ -30,16 +30,16 @@ print(f"status current battery: {min_capacity} ")
 print(f"status current engine_temp: {current_temp}")
 #start while
 while min_capacity > 0:
-    choes1 = input("do you whant to stops along the way?: (y/n)")
+    choes1 = input("do you whant to stops along the way?: (y/n): ")
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
-        print(f"stopping at {choes2}..")
+        print(f"target locked: {choes2}. moving now...")
         for i in range(3):
-            min_capacity -= BATTERY_DROP
-            current_temp += TEMP_RISE
-            print(F"DRIVING ... BATTERY: {min_capacity}% | temp: {current_temp}C")
+            min_capacity = min_capacity - BATTERY_DROP
+            current_temp = current_temp + TEMP_RISE
+            print(F"on the way to {choes2}... battery: {min_capacity}% | temp: {current_temp}")
             time.sleep(1)
-            print(f"arrived and stopped at {choes2}.")
+            print(f"car reached{choes2}.")
             break
     if choes1 == "n":
         print("continue the way")
