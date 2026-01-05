@@ -29,7 +29,14 @@ print(f"hi, welcome, {passenger_car}:")
 print("status current battery: {min_capacity} ")
 print("status current engine_temp: {current_temp}")
 #start while
-while min_capacity > 15:
+while min_capacity > 0:
+    choes1 = input("do you whant to stops along the way?: (y/n)")
+    if choes1 == "y":
+        choes2 = ("where do you want to stope?:")
+        print(f"stopping at {choes2}..")
+        break
+    if choes1 == "n":
+        print("continue the way")
     time.sleep(1)
     min_capacity = min_capacity - BATTERY_DROP
     print(f"the each stage {BATTERY_DROP}: ")
@@ -39,13 +46,7 @@ while min_capacity > 15:
     if current_temp > 200:
         print("EMERGENCY! URGENT STOP!")
         break
-    choes1 = input("do you whant to stops along the way?: (y/n)")
-    if choes1 == "y":
-        choes2 = ("where do you want to stope?:")
-        print(f"stopping at {choes2}..")
-        break
-    if choes1 == "n":
-        print("continue the way")    
+       
 
 data ["engine_temp"]["MAX_TEMP"] = current_temp
 data ["engine_temp"]["TEMP_RISE"] = TEMP_RISE
