@@ -1,43 +1,30 @@
 import time
 import json
+def calculate_battery(current):
+    return current - 7
+def calculate_temp(current):
+    return current + 12
+
+MIN_BATTERY_LEVEL = 10
+MAX_ENGINE_TEMP = 110 
 try:
     with open("car_report2_json", "r") as f:
-        data = json.load(f)
+        status = json.load(f)
 except FileNotFoundError:
-    data = {
-        "battery": {
-            "min_capacity": 15,
-            "current_level": 85,
-            "BATTERY_DROP": 5,
-            "CRITICAL_BATTERY": 20,
-            "current_sensor_battery": 90
-        }, "engine_temp": {
-            "MAX_TEMP": 195,
-            "TEMP_RISE": 10,
-            "CRITICAL_TEMP": 200,
-            "current_sensor_temp": 80
-        }
-    }
-    # battery
-min_capacity = data["battery"]["min_capacity"]    
-CRITICAL_BATTERY = data["battery"]["CRITICAL_BATTERY"] 
-BATTERY_DROP = data["battery"]["BATTERY_DROP"]
-current_sensor_battery = data["battery"]["current_sensor_battery"]
-    # temp
-MAX_TEMP = data["engine_temp"]["MAX_TEMP"]
-CRITICAL_TEMP = data["engine_temp"]["CRITICAL_TEMP"]
-current_sensor_temp = data["engine_temp"]["current_sensor_temp"]
+    status = {"battery_percent": 100, "engine_temp": 25}
+current_battery = status["battery_percent"]
+current_temp = status["temp_percent"]    
+    # اجرای عملیات
+print(f"--- start 11 day ---")
+print(f"fixt rules:temp allowed < {MAX_ENGINE_TEMP} | fixed rules:battery allowed > {MIN_BATTERY_LEVEL}")
 
 passenger = input("what's your name?:")
 print(f"hi, welcom, {passenger}:")
 address_passenger = input("enter the address:")
 print(f"moving: {address_passenger}:")
-# def 
-def show_status(battery):
-    return current_sensor_battery - 5
-def show_status(temp):
-    return current_sensor_temp - 10 
 while true:
+    # به روز رسانی مقادیر بر اساس توابع
+    current_battery = calculate_battery(current_battery)
     battery = current_sensor_battery
     engine_temp = current_sensor_temp
     if current_sensor_battery < min_capacity:
