@@ -1,0 +1,13 @@
+{
+    "car_id": "bot_01",
+    "min_threshold": 10,
+    "engine_temp": 112,
+    "speed": 40,
+    "status": "moving",
+    "location": {
+        "lat": 35.6892,
+        "lng": 51.389
+    },
+    "battery": -3,
+    "driver": "aylar"
+}

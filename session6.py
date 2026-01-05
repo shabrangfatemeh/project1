@@ -14,11 +14,11 @@ def update_car_system(added_amount):
     new_total =  current_status + added_amount 
     data["battery"] = new_total
     data["driver"] = driver_name
-    data["min_threshold"] = 20
+    data["min_threshold"] = 10
     with open("car_report.json", "w") as f:
         json.dump(data, f, indent=4) 
     print(f"update successfully! battery went from {current_status}% to {new_total}%")
-    if new_total <= 20:
+    if new_total <= 10:
         print("WARNING!: battery is at or below minium level!")
 
 update_car_system(charge_to_add) 

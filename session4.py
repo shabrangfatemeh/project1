@@ -1,5 +1,5 @@
 import json
-car_data = {"car_id": "bot_01", "battery": 85, "engine_temp": 112, "speed": 40, 
+car_data = {"car_id": "bot_01", "min_threshold": 10, "engine_temp": 112, "speed": 40, 
             "status": "moving", "location": {"lat": 35.6892, "lng":51.3890}
             }
 report = json.dumps(car_data, indent=4)
