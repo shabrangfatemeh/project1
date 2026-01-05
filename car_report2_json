@@ -6,8 +6,8 @@
         "charging": false
     },
     "battery": {
-        "min_capacity": 15,
-        "max_copacity": 250,
+        "min_capacity": 0,
+        "max_capacity": 250,
         "current_level": 85,
         "BATTERY_DROP": 5,
         "CRETICAL_BATTERY": 20,
