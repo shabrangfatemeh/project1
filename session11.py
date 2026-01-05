@@ -1,50 +1,47 @@
 import time
 import json
-def calculate_battery(current):
-    return current - 7
-def calculate_temp(current):
-    return current + 12
+def battery_sensor(current_val):
+    new_val = current_val - 8
+    return new_val
+def temp_sensor(current_val):
+    new_val = current_val + 15
+    return new_val
 
-MIN_BATTERY_LEVEL = 10
-MAX_ENGINE_TEMP = 110 
+STOP_TEMP = 120
+LOW_BATTERY = 20
 try:
     with open("car_report2_json", "r") as f:
         status = json.load(f)
 except FileNotFoundError:
-    status = {"battery_percent": 100, "engine_temp": 25}
-current_battery = status["battery_percent"]
-current_temp = status["temp_percent"]    
+    status = {"current_battery": 100, "current_temp": 30}
+battery = status["current_battery"]
+temp = status["current_temp"]    
     # اجرای عملیات
-print(f"--- start 11 day ---")
-print(f"fixt rules:temp allowed < {MAX_ENGINE_TEMP} | fixed rules:battery allowed > {MIN_BATTERY_LEVEL}")
+print(f"--- activate senssor system ---")
 
 passenger = input("what's your name?:")
 print(f"hi, welcom, {passenger}:")
 address_passenger = input("enter the address:")
 print(f"moving: {address_passenger}:")
-while true:
+while True:
     # به روز رسانی مقادیر بر اساس توابع
-    current_battery = calculate_battery(current_battery)
-    battery = current_sensor_battery
-    engine_temp = current_sensor_temp
-    if current_sensor_battery < min_capacity:
-        print("please STOP!")
-        break
-    if current_sensor_temp >  CRITICAL_TEMP: 
+    battery = battery_sensor(battery)
+    temp = temp_sensor(temp)
+    if temp >= STOP_TEMP:
         print("EMERGENCE! stope!")
         break
+    if battery <= LOW_BATTERY: 
+        print("PLEAS stope!")
+        break 
+    time.sleep(1)
+
     choes1 = input("Are you stopping along the way?(y/n): ")
     if choes1 == "y":
        print("where do you stop?: ")
       
-data["battery"]["min_capacity"] = min_capacity
-data["battery"]["CRITICAL_BATTERY"] = CRITICAL_BATTERY
-data["battery"]["BATTERY_DROP"] = BATTERY_DROP
-data["battery"]["current_sensor_battery"] = current_sensor_battery
-data["engine_temp"]["MAX_TEMP"] = MAX_TEMP
-data["engine_temp"]["CRITICAL_TEMP"] = CRITICAL_TEMP
-data["engine_temp"]["current_sensor_temp"] = current_sensor_temp
- 
+status["current_battery"] = battery
+status["current_temp"] = temp 
 with open("car_report2_json", "w") as f:
-    json.dump(data, f,indent=4)
+    json.dump(status, f,indent=4)
+print("save to file successfully")    
      
