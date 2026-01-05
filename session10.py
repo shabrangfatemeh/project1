@@ -32,7 +32,7 @@ print(f"status current engine_temp: {current_temp}")
 while min_capacity > 0:
     choes1 = input("do you whant to stops along the way?: (y/n): ")
     if choes1 == "y":
-        choes2 = ("where do you want to stope?:")
+        choes2 = input("where do you want to stope?:")
         print(f"target locked: {choes2}. moving now...")
         for i in range(3):
             min_capacity = min_capacity - BATTERY_DROP
@@ -58,6 +58,7 @@ data ["engine_temp"]["MAX_TEMP"] = current_temp
 data ["engine_temp"]["TEMP_RISE"] = TEMP_RISE
 data ["battery"]["BATTERY_DROP"] = BATTERY_DROP
 data ["battery"]["min_capacity"] = min_capacity
+
 with open("car_report2_json", "w") as f:
     json.dump(data, f, indent=4)
 print("status: save to file successfully!:")
