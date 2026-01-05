@@ -26,8 +26,8 @@ min_capacity = data ["battery"]["min_capacity"]
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
 #به دلیل نبود سنسور از مین و رایس استفاده کردم که در روز 11 اصلاح می شود
-print("status current battery: {min_capacity} ")
-print("status current engine_temp: {current_temp}")
+print(f"status current battery: {min_capacity} ")
+print(f"status current engine_temp: {current_temp}")
 #start while
 while min_capacity > 0:
     choes1 = input("do you whant to stops along the way?: (y/n)")
