@@ -34,7 +34,13 @@ while min_capacity > 0:
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
         print(f"stopping at {choes2}..")
-        break
+        for i in range(3):
+            min_capacity -= BATTERY_DROP
+            current_temp += TEMP_RISE
+            print(F"DRIVING ... BATTERY: {min_capacity}% | temp: {current_temp}C")
+            time.sleep(1)
+            print(f"arrived and stopped at {choes2}.")
+            break
     if choes1 == "n":
         print("continue the way")
     time.sleep(1)
