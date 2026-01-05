@@ -42,8 +42,7 @@ while min_capacity > 15:
     choes1 = input("do you whant to stops along the way?: (y/n)")
     if choes1 == "y":
         choes2 = ("where do you want to stope?:")
-        print("street 45 m")
-        print("       رسییم stop")
+        print(f"stopping at {choes2}..")
         break
     if choes1 == "n":
         print("continue the way")    
