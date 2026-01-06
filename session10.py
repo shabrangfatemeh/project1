@@ -32,6 +32,7 @@ current_battery = data ["battery"]["max_capacity"]
 # اجرا
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
+passenger = input("do you have a stop on theway?(y/n): ")
 
 while True:
     current_temp = temp_sensor(current_temp, TEMP_RISE)
@@ -43,6 +44,9 @@ while True:
     if current_battery <= 8:
         print("battery empty")
         break   
+    if passenger =="y":
+        print("stop!")
+        break
 time.sleep(1)
 
 data ["engine_temp"]["MAX_TEMP"] = current_temp
