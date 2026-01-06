@@ -36,7 +36,7 @@ address = input("enter the address:")
 print(f"moving: {address}:")
 stop_Q = input("Are you stopping along the way?(y/n): ").strip().lower()
 stop_address = None
-stope_distance = None
+stop_distance = None
 if stop_Q in ("y", "yes"):
         stop_adderss = input("where do you stop?:")
         stop_distance = int (input("distance to stop(km): "))
@@ -56,22 +56,15 @@ while True:
     if current_battery <= 30:
         print("battery empty")
         break
-    
-
-    battery = battery_sensor(battery)
-    temp = temp_sensor(temp)
-    if temp >= STOP_TEMP:
-        print("EMERGENCE! stope!")
+    if stop_distance is not None and traveled_distance >= stop_distance:
+        print(f"stop car at :{stop_address}")
         break
-    if battery <= LOW_BATTERY: 
-        print("PLEAS stope!")
-        break 
     time.sleep(1)
-
-   
-status["current_battery"] = battery
-status["current_temp"] = temp 
+         
+         
+data ["engine_temp"]["MAX_TEMP"] = current_temp
+data ["battery"]["BATTERY_DROP"] = current_battery 
 with open("car_report2_json", "w") as f:
-    json.dump(status, f,indent=4)
+    json.dump(data, f,indent=4)
 print("save to file successfully")    
      
