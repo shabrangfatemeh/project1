@@ -7,7 +7,7 @@ def temp_sensor(current_temp, temp_drop):
 
 try:
     with open("car_report2_json", "r") as f:
-        status = json.load(f)
+        data = json.load(f)
 except FileNotFoundError:
    print("not find! initializing default data ...")
    data = {
@@ -38,7 +38,7 @@ stop_Q = input("Are you stopping along the way?(y/n): ").strip().lower()
 stop_address = None
 stop_distance = None
 if stop_Q in ("y", "yes"):
-        stop_adderss = input("where do you stop?:")
+        stop_address = input("where do you stop?:")
         stop_distance = int (input("distance to stop(km): "))
 traveled_distance = 0
      #while        
@@ -50,7 +50,7 @@ while True:
     print(f"temp: {current_temp}")
     print(f"traveled_distance: {traveled_distance} km")
      #if
-    if current_temp >= 200
+    if current_temp >= 200:
         print("danger! stop!")
         break 
     if current_battery <= 30:
@@ -63,7 +63,8 @@ while True:
          
          
 data ["engine_temp"]["MAX_TEMP"] = current_temp
-data ["battery"]["BATTERY_DROP"] = current_battery 
+data ["battery"]["max_capacity"] = current_battery
+
 with open("car_report2_json", "w") as f:
     json.dump(data, f,indent=4)
 print("save to file successfully")    
