@@ -2,9 +2,9 @@ import json
 import time
 
 def battery_sensor(current_battery, drop_rate):
-    return current_battery, drop_rate
+    return current_battery - drop_rate
 def temp_sensor(current_temp, rise_rate):
-    return current_temp, rise_rate
+    return current_temp - rise_rate
 
 try:
     with open("car_report2_json", "r") as f:
@@ -23,9 +23,9 @@ except FileNotFoundError:
             }
            }
 # variable fixed
-MAX_ALLOWED_TEMP = data ["engine_temp"]["MAX_ALLOWED_TEMP"]
+MAX_TEMP = data ["engine_temp"]["MAX_TEMP"]
 TEMP_RISE = data ["engine_temp"]["TEMP_RISE"]
-BATTERY_RISE = data["battery"]["BATTERY_DROP"]
+BATTERY_DROP = data["battery"]["BATTERY_DROP"]
 # variable jeson
 current_temp = 30
 current_battery = data ["battery"]["max_capacity"]
@@ -34,13 +34,13 @@ passenger_car = input("what's your name?:")
 print(f"hi, welcome, {passenger_car}:")
 
 while True:
-    current_temp = current_temp + TEMP_RISE
-    current_battery = current_battery - BATTERY_DROP
+    current_temp = temp_sensor(current_temp, TEMP_RISE)
+    current_battery = battery_sensor(current_battery, BATTERY_DROP)
 
     print(f"status current_battery: {current_battery}")
     print(f"status current_temp: {current_temp}")
 
-    if data ["battery"]["max_capacity"] <= 0:
+    if current_battery <= 8:
         print("battery empty")
         break   
 time.sleep(1)
