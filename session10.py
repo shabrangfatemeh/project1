@@ -32,20 +32,28 @@ current_battery = data ["battery"]["max_capacity"]
 # اجرا
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
-passenger = input("do you have a stop on theway?(y/n): ")
+stop_answer = input("do you have a stop on theway?(y/n): ").strip().lower()
+stop_address = None
+stop_distance = None 
+if stop_answer in"y":
+        stop_address = input("where do you want to stop?: ")
+        stop_distance = int(input("distance to stop (km): "))
+traveled_distance = 0   
 
 while True:
     current_temp = temp_sensor(current_temp, TEMP_RISE)
     current_battery = battery_sensor(current_battery, BATTERY_DROP)
+    traveled_distance += 1
 
-    print(f"status current_battery: {current_battery}")
-    print(f"status current_temp: {current_temp}")
+    print(f"battery: {current_battery}")
+    print(f"temp: {current_temp}")
+    print(f"traveled_distance: {traveled_distance} km")
 
     if current_battery <= 8:
         print("battery empty")
         break   
-    if passenger =="y":
-        print("stop!")
+    if stop_distance is not None and traveled_distance >= stop_distance:
+        print(f"car stopped at: {stop_address}")
         break
 time.sleep(1)
 
