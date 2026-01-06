@@ -4,7 +4,7 @@ import time
 def battery_sensor(current_battery, drop_rate):
     return current_battery - drop_rate
 def temp_sensor(current_temp, rise_rate):
-    return current_temp - rise_rate
+    return current_temp + rise_rate
 
 try:
     with open("car_report2_json", "r") as f:
@@ -32,10 +32,10 @@ current_battery = data ["battery"]["max_capacity"]
 # اجرا
 passenger_car = input("what's your name?:")    
 print(f"hi, welcome, {passenger_car}:")
-stop_answer = input("do you have a stop on theway?(y/n): ").strip().lower()
+stop_answer = input("do you have a stop on the way?(y/n): ").strip().lower()
 stop_address = None
 stop_distance = None 
-if stop_answer in"y":
+if stop_answer in "y":
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance to stop (km): "))
 traveled_distance = 0   
