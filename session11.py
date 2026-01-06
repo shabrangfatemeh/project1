@@ -13,7 +13,7 @@ except FileNotFoundError:
    data = {
        "engine_temp": {
        "MAX_TEMP": 200,
-       "TEMP_RISE": 10,   
+       "TEMP_RISE": 10   
        },
        "battery": {
        "BATTERY_DROP": 5, 
@@ -59,7 +59,8 @@ while True:
     if stop_distance is not None and traveled_distance >= stop_distance:
         print(f"stop car at :{stop_address}")
         break
-    time.sleep(1)
+time.sleep(1)
+         
          
          
 data ["engine_temp"]["MAX_TEMP"] = current_temp
