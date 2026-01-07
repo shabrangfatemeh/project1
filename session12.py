@@ -1,20 +1,29 @@
 import time
 import json
-with open("car_report2_json" "r")as f:
-        data = json.load(f)
-   #error
 try:
-      #def sensor_battery
-    def sensor_battery(current_battery, BATTERY_DROP):
-        return current_battery - BATTERY_DROP
-except PermissionError:
-    print("limited access: initializing default data..")
+    with open("car_report2_json" "r")as f:
+        data = json.load(f)
+except FileNotFoundError:
+    print("not found! initializing default data...")
     data = {
          "battery": {
-         "min_capacity": 13,     
+         "min_capacity": 15,
+         "max_capacity": 250,     
          "BATTERY_DROP": 8
+         },
+         "engine_temp": {
+         "MAX_TEMP": 10,
+         "TEMP_RISE": 10,
+         "CRITICAL_TEMP": 200   
          }
     } 
+      #def sensor_battery
+def sensor_battery(current_battery, BATTERY_DROP, erroe_factor):
+    try:
+        return current_battery - BATTERY_DROP + erroe_factor
+    except TypeError:
+        return current_battery
+    
        # def battery_distance
 def battery_distance(sensor_battery, distance_traveled):
     return sensor_battery - distance_traveled
@@ -55,14 +64,14 @@ while True:
 
     distance_traveled += 1
 
-    print(f"battery: {current_temp}")
+    print(f"battery: {current_battery}")
     print(f"temp: {current_temp}")
     print(f"sensor_battery: {battery}")
     print(f"distance_traveled : {distance_traveled} (km)")
 
     if sensor_temp >= CRITICAL_TEMP:
-    print("warning! stop!")
-    break
+        print("warning! stop!")
+        break
     if sensor_battery <= min_capacity:
         print("empty battery! stop!")
         break
