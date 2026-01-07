@@ -83,6 +83,6 @@ time.sleep(1)
 data["battery"]["max_capacity"] = int(current_battery)      
 data["engine_temp"]["CRITICAL_TEMP"] = current_temp 
 
-with open("car_report2_json" "w") as f:
+with open("car_report2_json", "w") as f:
      json.dump(data, f, indent=4)
 print("status: file to save successfully: ")     
