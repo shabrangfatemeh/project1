@@ -12,18 +12,18 @@ except FileNotFoundError:
          "BATTERY_DROP": 8
          },
          "engine_temp": {
-         "MAX_TEMP": 10,
+         "MAX_TEMP": 100,
          "TEMP_RISE": 10,
          "CRITICAL_TEMP": 200   
          }
     } 
       #def sensor_battery
-def smart_battery(current_battery, distance_traveled, current_temp, base_drop, erroe_factor=0.0):
+def smart_battery(current_battery, distance_traveled, current_temp, BATTERY_DROP):
     try:
         temp_factor = 1 + (current_temp - 25) * 0.01
         distance_factor = 1 + distance_traveled * 0.005
-        new_battery = current_battery - base_drop * temp_factor * distance_factor 
-        return max(new_battery, 0)
+        new_battery = current_battery - BATTERY_DROP * temp_factor * distance_factor 
+        return int(max(new_battery, 0))
     except TypeError:
         return current_battery
        #def temp
@@ -37,8 +37,8 @@ def warning_temp_high():
      print("red warning!temp_high")
    # name passenger
 def passenger(name):
-    print(f"hi, welcom: {passenger}:")
-    #fixed
+    print(f"hi, welcome: {name}:")
+    # config fixed
 CRITICAL_TEMP = data["engine_temp"]["CRITICAL_TEMP"]
 TEMP_RISE = data["engine_temp"]["TEMP_RISE"]
 BATTERY_DROP = data["battery"]["BATTERY_DROP"]
@@ -60,21 +60,19 @@ if car_stop in ("y", "yes"):
 distance_traveled = 0
         #loop
 while True:
-    current_temp = sensor_temp(current_temp, TEMP_RISE)
-    current_battery = sensor_battery(current_battery, BATTERY_DROP)
-    sensor_battery = battery_distance(sensor_battery, distance_traveled)
-
+    current_temp = sensor_temp(current_temp, TEMP_RISE, 0)
+    current_battery = smart_battery(current_battery, distance_traveled, current_temp, BATTERY_DROP)
+    
     distance_traveled += 1
 
-    print(f"battery: {current_battery}")
+    print(f"smart_battery: {current_battery}")
     print(f"temp: {current_temp}")
-    print(f"sensor_battery: {battery}")
     print(f"distance_traveled : {distance_traveled} (km)")
 
-    if sensor_temp >= CRITICAL_TEMP:
+    if current_temp >= CRITICAL_TEMP:
         print("warning! stop!")
         break
-    if sensor_battery <= min_capacity:
+    if current_battery <= min_capacity:
         print("empty battery! stop!")
         break
     if stop_distance is not None and distance_traveled >= stop_distance:
@@ -82,9 +80,8 @@ while True:
         break
 time.sleep(1)
 
-data["battery"]["max_capacity"] =  current_battery      
-data["engine_temp"]["MAX_TEMP"] =  current_temp 
-data["battery"]["min_capacity"] = min_capacity
+data["battery"]["max_capacity"] = int(current_battery)      
+data["engine_temp"]["CRITICAL_TEMP"] = current_temp 
 
 with open("car_report2_json" "w") as f:
      json.dump(data, f, indent=4)
