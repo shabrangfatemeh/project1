@@ -18,21 +18,23 @@ except FileNotFoundError:
          }
     } 
       #def sensor_battery
-def sensor_battery(current_battery, BATTERY_DROP, erroe_factor):
+def smart_battery(current_battery, distance_traveled, current_temp, base_drop, erroe_factor=0.0):
     try:
-        return current_battery - BATTERY_DROP + erroe_factor
+        temp_factor = 1 + (current_temp - 25) * 0.01
+        distance_factor = 1 + distance_traveled * 0.005
+        new_battery = current_battery - base_drop * temp_factor * distance_factor 
+        return max(new_battery, 0)
     except TypeError:
         return current_battery
-    
-       # def battery_distance
-def battery_distance(sensor_battery, distance_traveled):
-    return sensor_battery - distance_traveled
-    #def temp
-def sensor_temp(current_temp, TEMP_RISE):
-    return current_temp + TEMP_RISE
- # def special
-def warning_temp_high(red):
-     print("red")
+       #def temp
+def sensor_temp(current_temp, TEMP_RISE, error_factor):
+    try:
+        return current_temp + TEMP_RISE - error_factor
+    except TypeError:
+        return current_temp
+  # def special
+def warning_temp_high():
+     print("red warning!temp_high")
    # name passenger
 def passenger(name):
     print(f"hi, welcom: {passenger}:")
