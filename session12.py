@@ -71,14 +71,10 @@ while True:
         break
 time.sleep(1)
 
-data       
+data["battery"]["max_capacity"] =  current_battery      
+data["engine_temp"]["MAX_TEMP"] =  current_temp 
+data["battery"]["min_capacity"] = min_capacity
 
-
-
-
-
-
-
-     # erroe try
-
-   
+with open("car_report2_json" "w") as f:
+     json.dump(data, f, indent=4)
+print("status: file to save successfully: ")     
