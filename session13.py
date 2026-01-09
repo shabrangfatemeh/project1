@@ -15,15 +15,21 @@ except PermissionError:
         "TEMP_RISE":5   
         }
     } 
-    def smart_sensor_temp(current_temp, TEMP_INCREASE_RATE, distance_traveled, temp_محیط)
+           #  def    smart   sensor    battery   ,   temp
+def smart_sensor_temp(current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air):
         try:
-
-    def smart_sensor_battery(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled):
+            distance_factor = 1 + distance_traveled * 0.005
+            new_temp = current_temp + TEMP_INCREASE_RATE + current_temp_air
+            return int(max(new_temp, 0))
+        except TypeError:
+            return current_temp
+def smart_sensor_battery(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled):
         try:
             distance_factor = 1 + distance_traveled * 0.005
             new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + 25) * 0.01
             new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor
             return int(max(new_battery, 0))
-            return int(max(new_temp, 0))
         except TypeError:
             return current_battery
+                                   #    def    name   passenger
+            
