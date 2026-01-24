@@ -34,17 +34,31 @@ def warning_temp_high():
                                       #           DEf      name   passenger
 def passenger(name):
     print(f"passenger: {name}:")
+                         #def health
+def smart_sensor_system_health(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV, current_fluids, oil_level, water_level):
+        try:
+          distance_factor = 1 + distance_traveled * 0.005
+          REV_factor = 1 + REV * 0.003
+          new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + current_temp_air + REV) * 0.01
+          new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor 
+          new_fluids = current_fluids + oil_level + water_level
+          return int(max(new_battery, new_temp, new_fluids, 0))
+        except TypeError:
+            return current_battery, current_temp,current_fluids
                                 # config
                                             #FIXED
-                                 
+                              
 REV = data["engine_temp"]["rev"]
 TEMP_INCREASE_RATE = data["engine_temp"]["TEMP_INCREASE_RATE"]
 BATTERY_DROP_RATE = data["battery"]["BATTERY_DROP_RATE"]
-                                                 # variable                                                                           
+                                                 # variable
+oil_level = 20
+water_level = 40                                                                           
 rev = 100
 current_temp = 40
 current_battery = data["battery"]["max_capacity"]
 min_battery = data["battery"]["min_capacity"]
+system_health = 0, 100         # این برای وقتی که دف نداره و سنسوری براش تعریف نکردیم
                            # traveled
 address = input("where you want the way? : ")
 print(f"moving: {address}:")
