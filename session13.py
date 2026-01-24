@@ -51,11 +51,16 @@ def smart_sensor_system_health(current_battery, BATTERY_DROP_RATE, current_temp,
 REV = data["engine_temp"]["rev"]
 TEMP_INCREASE_RATE = data["engine_temp"]["TEMP_INCREASE_RATE"]
 BATTERY_DROP_RATE = data["battery"]["BATTERY_DROP_RATE"]
+current_fluids = data["oil_level"]["water_level"]
+CRITICAL_TEMP = data["engine_temp"]["CURITICAL_TEMP"]
+system_health = data["current_temp"]["current_battery"]["current_fluids"]
                                                  # variable
-oil_level = 20
-water_level = 40                                                                           
+oil_level = 50
+water_level = 70                                                                           
 rev = 100
+current_temp_air = 28
 current_temp = 40
+CRITICAL_BATTERY = data["battery"]["CRITICAL_BATTERY"]
 current_battery = data["battery"]["max_capacity"]
 min_battery = data["battery"]["min_capacity"]
 system_health = 0, 100         # این برای وقتی که دف نداره و سنسوری براش تعریف نکردیم
@@ -66,16 +71,28 @@ stop_way = input("do you want stop alog the way?: (y/n): ").strip().lower()
                 #       no addresss no distance
 stop_address = None
 stop_distance = None
-                # BET
+                # BET stop_way
 if stop_way in ("yes", "y"):
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance you stop?: (km): "))
 distance_traveled = 0
            #LOOP
 while True:
-    current_battery = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV)          
-    current_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV)
-    if smart_sensor_battery_temp < 20:
+    current_battery_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV)           
+    
+    print(f"smart_sensor_battery_temp: {current_battery}")
+    print(f"smart_sensor_battery_temp: {current_temp}")
+    print(f"smart_sensor_battery_temp: {distance_traveled}")
+    print(f"smart_sensor_system_health: {current_fluids}")
+    distance_traveled = +1
+        # stop temp
+    if smart_sensor_battery_temp >= CRITICAL_TEMP:
+        print("DANGERS! high temp, might motor detonate")
+        break 
+       #BET  BATTERY
+    if smart_sensor_battery_temp < CRITICAL_BATTERY:
+        print("CAUTION! no charge battery")
+         
           
 
 
