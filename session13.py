@@ -71,7 +71,7 @@ stop_way = input("do you want stop alog the way?: (y/n): ").strip().lower()
                 #       no addresss no distance
 stop_address = None
 stop_distance = None
-                # BET stop_way
+                
 if stop_way in ("yes", "y"):
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance you stop?: (km): "))
@@ -88,10 +88,18 @@ while True:
         # stop temp
     if smart_sensor_battery_temp >= CRITICAL_TEMP:
         print("DANGERS! high temp, might motor detonate")
-        break 
-       #BET  BATTERY
+        break
+         #BET  BATTERY
     if smart_sensor_battery_temp < CRITICAL_BATTERY:
         print("CAUTION! no charge battery")
+         #bet stop_way 
+    if stop_distance and distance_traveled == stop_distance:
+        print("stop! stop_way")
+        break
+    if address == address:
+        print("arrive, enjoy traveled hope")
+        break  
+  
          
           
 
