@@ -62,7 +62,6 @@ current_temp_air = 28
 current_temp = 40
 CRITICAL_BATTERY = data["battery"]["CRITICAL_BATTERY"]
 current_battery = data["battery"]["max_capacity"]
-min_battery = data["battery"]["min_capacity"]
 system_health = 0, 100         # این برای وقتی که دف نداره و سنسوری براش تعریف نکردیم
                            # traveled
 address = input("where you want the way? : ")
@@ -98,8 +97,17 @@ while True:
         break
     if address == address:
         print("arrive, enjoy traveled hope")
-        break  
-  
+        break 
+    if smart_sensor_system_health >= 0  and smart_sensor_system_health <= 100:???????????
+          
+    time.sleep(2)
+data["battery"]["max_capacity"] = int(current_battery)
+data["engine_temp"]["CRITICAL_TEMP"] = current_temp
+data["oil_level"]["water_level"] = int(current_fluids)
+
+with open("car_report2_json" "w") as f:
+     json.dump(data, f,indent=4)
+print("status: save file successfully")  
          
           
 
