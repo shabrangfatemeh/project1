@@ -83,13 +83,12 @@ while distance_traveled < 10:
     if address == address:
         print("arrive, enjoy traveled hope")
         break 
-    if smart_sensor_system_health >= 0  and smart_sensor_system_health <= 100:???????????
-          
+              
     time.sleep(2)
 data["battery"]["max_capacity"] = int(current_battery)
-data["engine_temp"]["CRITICAL_TEMP"] = current_temp
-data["oil_level"]["water_level"] = int(current_fluids)
-
+data["engine_temp"]["current_temp_air"] = current_temp
+data["fluids"]["oil_level"] = oil_level
+data["fluids"]["water_level"] = water_level
 with open("car_report2_json" "w") as f:
      json.dump(data, f,indent=4)
 print("status: save file successfully")  
