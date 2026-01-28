@@ -23,8 +23,8 @@ def smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, 
         try:
             distance_factor = 1 + distance_traveled * 0.005
             REV_factor = 1 + REV * 0.003
-            new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + current_temp_air + REV) * 0.01
-            new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor
+            new_temp = current_temp + TEMP_INCREASE_RATE + current_temp_air * 0.01 + REV * 0.01
+            new_battery = current_battery - BATTERY_DROP_RATE * distance_factor  * REV_factor
             return int(max(new_battery, new_temp, 0))
         except TypeError:
             return current_battery, current_temp
@@ -37,12 +37,15 @@ def passenger(name):
                          #def health
 def smart_sensor_system_health(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV, current_fluids, oil_level, water_level):
         try:
-          distance_factor = 1 + distance_traveled * 0.005
-          REV_factor = 1 + REV * 0.003
-          new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + current_temp_air + REV) * 0.01
-          new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor 
-          new_fluids = current_fluids + oil_level + water_level
-          return int(max(new_battery, new_temp, new_fluids, 0))
+            distance_factor = 1 + distance_traveled * 0.005
+            REV_factor = 1 + REV * 0.003
+            new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + current_temp_air + REV) * 0.01
+            new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor 
+            new_fluids = current_fluids + oil_level + water_level
+              #BET  BATTERY
+            if new_temp < data["battery"]["CRITICAL_BATTERY"]:
+                print("CAUTION! battery low (<20%)")
+            return int(max(new_battery, new_temp, new_fluids, 0))
         except TypeError:
             return current_battery, current_temp,current_fluids
                                 # config
@@ -88,10 +91,7 @@ while True:
     if smart_sensor_battery_temp >= CRITICAL_TEMP:
         print("DANGERS! high temp, might motor detonate")
         break
-         #BET  BATTERY
-    if smart_sensor_battery_temp < CRITICAL_BATTERY:
-        print("CAUTION! no charge battery")
-         #bet stop_way 
+              #bet stop_way 
     if stop_distance and distance_traveled == stop_distance:
         print("stop! stop_way")
         break
