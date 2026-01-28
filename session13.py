@@ -43,16 +43,17 @@ def smart_sensor_system_health(current_battery, current_temp, oil_level, water_l
                                             #FIXd or  # variable
 oil_level = data["fluids"]["oil_level"]
 water_level = data["fluids"]["water_level"]                                                                          
-rev = 100
+REV = 100
 BATTERY_DROP_RATE = 2
 TEMP_INCREASE_RATE = 5
 current_temp = data["engine_temp"]["current_temp_air"]
 current_battery = data["battery"]["max_capacity"]
 distance_traveled = 0
+
                                 # traveled
 address = input("where you want the way? : ")
 print(f"moving: {address}:")
-stop_way = input("do you want stop alog the way?: (y/n): ").strip().lower()
+stop_way = input("do you want stop along the way?: (y/n): ").strip().lower()
                 #       no addresss no distance
 stop_address = None
 stop_distance = None
@@ -61,19 +62,20 @@ if stop_way in ("yes", "y"):
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance you stop?: (km): "))
 
+
            #LOOP
-while True:
-    current_battery_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV)           
-    
-    print(f"smart_sensor_battery_temp: {current_battery}")
-    print(f"smart_sensor_battery_temp: {current_temp}")
-    print(f"smart_sensor_battery_temp: {distance_traveled}")
-    print(f"smart_sensor_system_health: {current_fluids}")
+while distance_traveled < 10:
+    current_battery, current_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE,
+          distance_traveled, data["engine_temp"]["current_temp_air"], REV)
     distance_traveled = +1
-        # stop temp
-    if smart_sensor_battery_temp >= CRITICAL_TEMP:
-        print("DANGERS! high temp, might motor detonate")
-        break
+        # calculathon system_health  محاسبه سلامت سیستم
+    system_health = smart_sensor_system_health(current_battery, current_temp, oil_level, water_level)
+    data["system_health"] = system_health
+    print(f"step {distance_traveled+1}: battery={current_battery:.1f}, temp={current_temp:.1f}, system_health={system_health}")
+           #warning high temp
+    if current_temp >= data["engine_temp"]["max_temp"]:
+        print("DANGER! High engine_temp!")
+        break        
               #bet stop_way 
     if stop_distance and distance_traveled == stop_distance:
         print("stop! stop_way")
