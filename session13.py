@@ -25,48 +25,31 @@ def smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, 
             REV_factor = 1 + REV * 0.003
             new_temp = current_temp + TEMP_INCREASE_RATE + current_temp_air * 0.01 + REV * 0.01
             new_battery = current_battery - BATTERY_DROP_RATE * distance_factor  * REV_factor
-            return int(max(new_battery, new_temp, 0))
-        except TypeError:
-            return current_battery, current_temp
-                                   #    def    WARNING!
-def warning_temp_high():
-    print("RED!!!")
-                                      #           DEf      name   passenger
-def passenger(name):
-    print(f"passenger: {name}:")
-                         #def health
-def smart_sensor_system_health(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV, current_fluids, oil_level, water_level):
-        try:
-            distance_factor = 1 + distance_traveled * 0.005
-            REV_factor = 1 + REV * 0.003
-            new_temp = 1 + (current_temp + TEMP_INCREASE_RATE + current_temp_air + REV) * 0.01
-            new_battery = current_battery - BATTERY_DROP_RATE * new_temp * distance_factor 
-            new_fluids = current_fluids + oil_level + water_level
               #BET  BATTERY
             if new_temp < data["battery"]["CRITICAL_BATTERY"]:
                 print("CAUTION! battery low (<20%)")
-            return int(max(new_battery, new_temp, new_fluids, 0))
+            return max((new_battery, 0), new_temp)
         except TypeError:
-            return current_battery, current_temp,current_fluids
+            return current_battery, current_temp
+                                                           #def health
+def smart_sensor_system_health(current_battery, current_temp, oil_level, water_level):
+    
+    temp_factor = max(0, 1 - current_temp / data["engine_temp"]["max_temp"]) 
+    battery_factor = current_battery / data["battery"]["max_capacity"] 
+    fluids_factor =  oil_level + water_level / 200 # فرض حداکثر مجموع
+    system_health = (battery_factor + temp_factor + fluids_factor) / 3 * 100
+    return min(max(int(system_health),0), 100)
                                 # config
-                                            #FIXED
-                              
-REV = data["engine_temp"]["rev"]
-TEMP_INCREASE_RATE = data["engine_temp"]["TEMP_INCREASE_RATE"]
-BATTERY_DROP_RATE = data["battery"]["BATTERY_DROP_RATE"]
-current_fluids = data["oil_level"]["water_level"]
-CRITICAL_TEMP = data["engine_temp"]["CURITICAL_TEMP"]
-system_health = data["current_temp"]["current_battery"]["current_fluids"]
-                                                 # variable
-oil_level = 50
-water_level = 70                                                                           
+                                            #FIXd or  # variable
+oil_level = data["fluids"]["oil_level"]
+water_level = data["fluids"]["water_level"]                                                                          
 rev = 100
-current_temp_air = 28
-current_temp = 40
-CRITICAL_BATTERY = data["battery"]["CRITICAL_BATTERY"]
+BATTERY_DROP_RATE = 2
+TEMP_INCREASE_RATE = 5
+current_temp = data["engine_temp"]["current_temp_air"]
 current_battery = data["battery"]["max_capacity"]
-system_health = 0, 100         # این برای وقتی که دف نداره و سنسوری براش تعریف نکردیم
-                           # traveled
+distance_traveled = 0
+                                # traveled
 address = input("where you want the way? : ")
 print(f"moving: {address}:")
 stop_way = input("do you want stop alog the way?: (y/n): ").strip().lower()
@@ -77,7 +60,7 @@ stop_distance = None
 if stop_way in ("yes", "y"):
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance you stop?: (km): "))
-distance_traveled = 0
+
            #LOOP
 while True:
     current_battery_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV)           
