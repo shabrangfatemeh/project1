@@ -6,17 +6,22 @@ try:
 except PermissionError:
     print("file promission! initializing default data...")
     data = {
-        "battery":{
+        "battery": {
         "min_capacity": 10,
-        "max_capacity": 200
+        "max_capacity": 200,
+        "CRITICAL_BATTERY": 20
         },
         "engine_temp": {
         "MAX_TEMP": 150,
         "TEMP_RISE":5,
-        "current_temp_air": 25   
+        "current_temp_air": 25
+        },
+        "fluids": {
+        "oil_level": 100,
+        "water_level": 100     
         },
         "system_health": 100
-    } 
+       } 
            #  def    smart   sensor    battery   ,   temp
 
 def smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV):
