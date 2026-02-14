@@ -36,7 +36,7 @@ def smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, 
             return max(new_battery, 0), new_temp
     except TypeError:
             return current_battery, current_temp
-                                                           #def health
+                               #def health
 def smart_sensor_system_health(current_battery, current_temp, oil_level, water_level):
     
     temp_factor = max(0, 1 - current_temp / data["engine_temp"]["max_temp"]) 
@@ -84,18 +84,18 @@ while distance_traveled < total_distance:
     print(f"battery:{current_battery:.1f}%")       
     print(f"temp:{current_temp:.1f}°c")
     print(f"system_health:{system_health}%")
-           #warning high temp
-    if current_temp >= data["engine_temp"]["max_temp"]:
-        print("DANGER! High engine_temp!")
-        break        
               #bet stop_way 
-    if stop_distance and distance_traveled == stop_distance:
-        print("stop! stop_way")
-        break
-    if address == address:
-        print("arrive, enjoy traveled hope")
-        break 
-              
+    if distance_traveled >= total_distance:
+        print("stop! successfully reached destination")
+    elif current_battery <= 0:
+        print("✖️ trip interrupted: battery depleted")     
+           #warning high temp
+    elif current_temp >= data["engine_temp"]["max_temp"]:
+        print("✖️ trip interrupted: engine overheated")
+    break
+    else:
+        print("✖️trip interrupted: unknown reason")
+        #save data        
     time.sleep(2)
 data["battery"]["max_capacity"] = int(current_battery)
 data["engine_temp"]["current_temp_air"] = current_temp
