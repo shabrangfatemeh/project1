@@ -92,7 +92,6 @@ while distance_traveled < total_distance:
            #warning high temp
     elif current_temp >= data["engine_temp"]["max_temp"]:
         print("✖️ trip interrupted: engine overheated")
-    break
     else:
         print("✖️trip interrupted: unknown reason")
         #save data        
