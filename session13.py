@@ -16,19 +16,44 @@ def load_car_data():
 # CONFIG JSON
         car_id = data.get("car_id", "bot_02")
 #status
-        status = data.get("status",{})
+        status = data.get("status", {})
         current_mode = status.get("current_mode", "idle")
         is_active = status.get("is_active", True)
         charging = status.get("charging", False)
 # BATTERY         
-        battery = data.get("battery",{})
+        battery = data.get("battery", {})
         current_battery = battery.get("current_level", 85)
         min_battery = battery.get("min_capacity", 15)
         max_battery = battery.get("max_capacity",250)
         battery_drop = battery.get("BATTERY_DROP", 5)
         critical_battery = battery.get("CRITICAL_BATTERY", 20)
 #ENGINE TEMP
-                
+        engine_temp = data.get("engine_temp", {})
+        current_engine_temp = engine_temp.get("current_level", 25)        
+        current_air_temp = engine_temp.get("current_air_temp", 25)
+        temp_rise = engine_temp.get("TEMP_RISE", 10)
+        critical_temp = engine_temp.get("CRITICAL_TEMP", 200)
+#FLUIDS
+        fluids = data.get("fluids", {})
+        oil_level = fluids.get("oil_level", 75)
+        water_level = fluids.get("water_level", 90)
+# location
+        location = data.get("location", {})
+        latitude = location.get("latitude", 35.6892)
+        longitude = location.get("longitude", 51.389)
+# system_health
+        system_health = data.get("system_health", 100)
+#erorr                                
+        diagnostics = data.get("diagnostics", {})
+        errors = data.get("errors", {})
+        faults = data.get("faults", {})
+
+        return{
+             
+        }
+
+
+
 
     current_temp = data["engine_temp"]["current_temp_air"]
     current_battery = data["battery"]["current_capacity"]
