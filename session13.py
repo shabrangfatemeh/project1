@@ -25,16 +25,16 @@ except PermissionError:
            #  def    smart   sensor    battery   ,   temp
 
 def smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE, distance_traveled, current_temp_air, REV):
-        try:
+    try:
             distance_factor = 1 + distance_traveled * 0.005
             REV_factor = 1 + REV * 0.003
             new_temp = current_temp + TEMP_INCREASE_RATE + current_temp_air * 0.01 + REV * 0.01
             new_battery = current_battery - BATTERY_DROP_RATE * distance_factor  * REV_factor
               #BET  BATTERY
-            if new_temp < data["battery"]["CRITICAL_BATTERY"]:
+            if new_battery < data["battery"]["CRITICAL_BATTERY"]:
                 print("CAUTION! battery low (<20%)")
-            return max((new_battery, 0), new_temp)
-        except TypeError:
+            return max(new_battery, 0), new_temp
+    except TypeError:
             return current_battery, current_temp
                                                            #def health
 def smart_sensor_system_health(current_battery, current_temp, oil_level, water_level):
@@ -56,6 +56,7 @@ current_battery = data["battery"]["max_capacity"]
 distance_traveled = 0
 
                                 # traveled
+print("===car trip simulator===")                                
 address = input("where you want the way? : ")
 print(f"moving: {address}:")
 stop_way = input("do you want stop along the way?: (y/n): ").strip().lower()
@@ -67,16 +68,22 @@ if stop_way in ("yes", "y"):
         stop_address = input("where do you want to stop?: ")
         stop_distance = int(input("distance you stop?: (km): "))
 
-
            #LOOP
-while distance_traveled < 10:
+print("\n===starting trip===")
+total_distance = 10           
+while distance_traveled < total_distance:
+
     current_battery, current_temp = smart_sensor_battery_temp(current_battery, BATTERY_DROP_RATE, current_temp, TEMP_INCREASE_RATE,
           distance_traveled, data["engine_temp"]["current_temp_air"], REV)
     distance_traveled = +1
         # calculathon system_health  محاسبه سلامت سیستم
     system_health = smart_sensor_system_health(current_battery, current_temp, oil_level, water_level)
     data["system_health"] = system_health
-    print(f"step {distance_traveled+1}: battery={current_battery:.1f}, temp={current_temp:.1f}, system_health={system_health}")
+         #نمایش وضعیت
+    print(f"\nstep {distance_traveled}:")
+    print(f"battery:{current_battery:.1f}%")       
+    print(f"temp:{current_temp:.1f}°c")
+    print(f"system_health:{system_health}%")
            #warning high temp
     if current_temp >= data["engine_temp"]["max_temp"]:
         print("DANGER! High engine_temp!")
