@@ -1,10 +1,43 @@
 import time
 import json
-try:
-    with open("car_report2_json", "r") as f:
-        data = json.load(f)
+      #fix constants
+class CarConstants:
+    BATTRY_DROP_RATE = 5
+    CRITICAL_BATTERY = 20
+    CRITICAL_TEMP = 200
+    TEMP_RISE_RATY = 10
+    MAX_SPEED = 350
+    TOTAL_DISTANCE = 10
+
+def load_car_data():
+    try:
+        with open("car_report2_json", "r") as f:
+            data = json.load(f)
+# CONFIG JSON
+        car_id = data.get("car_id", "bot_02")
+#status
+        status = data.get("status",{})
+        current_mode = status.get("current_mode", "idle")
+        is_active = status.get("is_active", True)
+        charging = status.get("charging", False)
+# BATTERY         
+        battery = data.get("battery",{})
+        current_battery = battery.get("current_level", 85)
+        min_battery = battery.get("min_capacity", 15)
+        max_battery = battery.get("max_capacity",250)
+        battery_drop = battery.get("BATTERY_DROP", 5)
+        critical_battery = battery.get("CRITICAL_BATTERY", 20)
+#ENGINE TEMP
+                
+
+    current_temp = data["engine_temp"]["current_temp_air"]
+    current_battery = data["battery"]["current_capacity"]
+    oil_level = data["fluids"]["oil_level"]
+    water_level = data["fluids"]["water_level"] 
+
 except PermissionError:
     print("file promission! initializing default data...")
+    
     data = {
         "battery": {
         "min_capacity": 10,
@@ -46,13 +79,11 @@ def smart_sensor_system_health(current_battery, current_temp, oil_level, water_l
     return min(max(int(system_health),0), 100)
                                 # config
                                             #FIXd or  # variable
-oil_level = data["fluids"]["oil_level"]
-water_level = data["fluids"]["water_level"]                                                                          
+                                                                        
 REV = 100
 BATTERY_DROP_RATE = 2
 TEMP_INCREASE_RATE = 5
-current_temp = data["engine_temp"]["current_temp_air"]
-current_battery = data["battery"]["max_capacity"]
+
 distance_traveled = 0
 
                                 # traveled
