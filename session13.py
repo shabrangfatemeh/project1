@@ -1,12 +1,8 @@
 import time
 import json
+import os
       #fix constants
 class CarConstants:
-    BATTRY_DROP_RATE = 5
-    CRITICAL_BATTERY = 20
-    CRITICAL_TEMP = 200
-    TEMP_RISE_RATY = 10
-    MAX_SPEED = 350
     TOTAL_DISTANCE = 10
 
 def load_car_data():
@@ -29,7 +25,7 @@ def load_car_data():
         critical_battery = battery.get("CRITICAL_BATTERY", 20)
 #ENGINE TEMP
         engine_temp = data.get("engine_temp", {})
-        current_engine_temp = engine_temp.get("current_level", 25)        
+        current_engine_temp = engine_temp.get("current_engine_temp", engine_temp.get("current_level", 25))        
         current_air_temp = engine_temp.get("current_air_temp", 25)
         temp_rise = engine_temp.get("TEMP_RISE", 10)
         critical_temp = engine_temp.get("CRITICAL_TEMP", 200)
@@ -133,8 +129,13 @@ def main():
 
     if stop_way in ("yes","y"):
         stop_address = input("where do you want to stop?:")
-        stop_distance = int(input("how many (km) do you have to stop?: "))
-
+        try:    
+            stop_distance = int(input("how many (km) do you have to stop?: "))
+            if stop_distance < 0:
+                stop_distance = abs(stop_distance)
+        except ValueError:
+            stop_distance = 5
+            print("invalid value, stop set at 5 km")                
       #start trip
     print("\n"+"="*50)
     print("start trip")
@@ -146,6 +147,9 @@ def main():
     oil_level = car_info['oil_level']
     water_level = car_info['water_level']
     system_health = car_info['system_health']
+
+    trip_completed = False
+    stop_reason = "unknown"
 
         #LOOP
     while distance_traveled < CarConstants.TOTAL_DISTANCE:
@@ -189,10 +193,13 @@ def main():
             "message": "battery long trip ending"
         })           
         break
-    time.sleep(1.5)
+        time.sleep(1.5)
    
-    #SUMMARY TRIP
-     
+   #review complete trip
+    if distance_traveled >= CarConstants.TOTAL_DISTANCE:
+        trip_completed = True
+        stop_reason = "arrive to destination"
+     #SUMMARY TRIP 
     print("\n" + "="*50)
     print("summary trip")
     print("="*50)
@@ -204,30 +211,26 @@ def main():
     print(f"final engine temp:{current_engine_temp:.1f}°c")
     print(f"final system health:{system_health}%")
 
-    if distance_traveled >= CarConstants.TOTAL_DISTANCE:
-        print("✔️ you have reacherd your destination")
-        car_info['data']["status"]["current_mode"] = "idle"
-    elif current_battery <= 0:
-        print("❌ UNFINALISHED trip! finish battery")
-        car_info['data']["status"]["current_mode"] = "error"
-    elif current_engine_temp >= car_info['critical_temp']:
-        print("❌ UNFINALISHED trip! over the limit engine temp")
-        car_info['data']["status"]["current_mode"] = "error"
+    if trip_completed:
+         print("✔️ you have reacherd your destination")
+         car_info['data']["status"]["current_mode"] = "idle"
     else:
-        print("❌ UNFINALISHED trip! the reason unknwon")  
+        print("❌ UNFINALISHED trip! the reason unknwon")
+        car_info['data']["status"]["current_mode"] = "error"  
 
 # save hn file jeson
-    car_info['data']["battery"]["curent_leval"] = int(current_battery)
-    car_info['data']["engine_temp"]["current_temp"] = current_engine_temp
-    car_info['data']["engine_temp"]["current_air_temp"] = current_air_temp
-    car_info['data']["fluids"]["oil_level"] = oil_level
-    car_info['data']["fluids"]["water_level"] = water_level
-    car_info['data']["system_health"] = system_health
-    car_info['data']["status"]["is_active"] = False
-
     try:
-        with open("car_report2_json", "w") as f:
-            json.dump(data, f,indent=4)
+        car_info['data']["battery"]["curent_leval"] = int(current_battery)
+        car_info['data']["engine_temp"]["current_temp"] = current_engine_temp
+        car_info['data']["engine_temp"]["current_air_temp"] = current_air_temp
+        car_info['data']["fluids"]["oil_level"] = oil_level
+        car_info['data']["fluids"]["water_level"] = water_level
+        car_info['data']["system_health"] = system_health
+        car_info['data']["status"]["is_active"] = False
+        
+        file_path = os.path.join(os.path.dirname(__file__), "car_report2_json")
+        with open("file_path", "w") as f:
+            json.dump(car_info['data'], f,indent=4)
         print("\n save file in json sucessfully")
     except Exception as e:
         print(f"\n . error in save file")
