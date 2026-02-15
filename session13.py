@@ -76,92 +76,42 @@ print("="*50)
 distance_traveled = 0
 trip_completed = False
 stop_reason = ""
+   #LOOP
+while distance_traveled < 10:
+    # UPDATE BATTERY AND TEMP
 
+    current_battery, current_engine_temp = smart_sensor_battery_temp(current_battery, current_temp,
+        distance_traveled, current_air_temp, rev)        
 
-
-
-
-
-
-
-
-
-
- 
-
-#information from the user get
-               
-    print(f"moving: {address}")
-
-   
-
-    
-            if stop_distance < 0:
-                stop_distance = abs(stop_distance)
-        except ValueError:
-            stop_distance = 5
-            print("invalid value, stop set at 5 km")                
-      
-    
-   
-    current_battery = car_info['current_battery']
-    current_engine_temp = car_info['current_engine_temp']
-    current_air_temp = car_info['current_air_temp']
-    oil_level = car_info['oil_level']
-    water_level = car_info['water_level']
-    system_health = car_info['system_health']
-
-    
-
-        #LOOP
-    while distance_traveled < CarConstants.TOTAL_DISTANCE:
-        # UPDATE BATTERY AND TEMP
-
-        current_battery, current_engine_temp = smart_sensor_battery_temp(current_battery, current_engine_temp,
-            distance_traveled, current_air_temp, car_info['battery_drop'], car_info['temp_rise'])        
-
-        distance_traveled = +1
-        #calculate SYSTEM_HEALTH
-        system_health = calculate_system_health(current_battery, current_engine_temp, oil_level, water_level,
-                                                    car_info['max_battery'], car_info['critical_temp']
-                                                    )    
-        #show status            
-        print(f"\n km: {distance_traveled}")
-        print(f"battery: {current_battery:.1f}%")
-        print(f" engine_temp: {current_engine_temp:.1f}°c")
-        print(f"air_temp: {current_air_temp:.1f}°c")
-        print(f"system_health: {system_health}%")
-
-        #warning temp high
-        if current_engine_temp >= car_info['critical_temp']:
-            print("WARNING! engine overheated")
-            print("STOP EMERGENCY!")
-            break
-        # REVIEW stop distance
-        if stop_distance and distance_traveled == stop_distance:
-            print(f"\n stop: {stop_address}")
-            print(" A RELAX SHORT")
-            time.sleep(3)
-            print("continue travel")
-        #warning battery weak
-        if current_battery < car_info['critical_battery']:
-            print("warning! battery is ending")
-        # add error to list
-        if "errors" not in car_info['data']["diagnostics"]:
-            car_info['data']["diagnostics"]["errors"] = []
-        car_info ['data']["diagnostics"]["errors"].append({
-            "time": time.time(),
-            "type": "battery_depleted",
-            "message": "battery long trip ending"
-        })           
-        break
-        time.sleep(1.5)
-   
-   #review complete trip
-    if distance_traveled >= CarConstants.TOTAL_DISTANCE:
+    distance_traveled = +1
+#calculate SYSTEM_HEALTH
+    system_health = system_health(current_battery, current_engine_temp, oil_level, water_level)
+#show status            
+    print(f"\n km: {distance_traveled}")
+    print(f"battery: {current_battery:.1f}%")
+    print(f" engine_temp: {current_engine_temp:.1f}°c")
+    print(f"air_temp: {current_air_temp:.1f}°c")
+    print(f"system_health: {system_health}%")
+#warning battery weak
+    if current_battery < critical_battery:
+        print("warning! battery is ending")                                                   
+#warning temp high
+    if current_temp >= critical_temp:
+        print("WARNING! engine overheated")
+        stop_reason = "engine overheated"
+        break                                                
+ # REVIEW stop distance
+    if stop_distance and distance_traveled == stop_distance:
+        print(f"\n stop: {stop_address}")
+        time.sleep(2)
+        print(" A RELAX SHORT")
+        time.sleep(1)
+        print("continue travel")
+#review complete trip
+    if distance_traveled == 10:
         trip_completed = True
         stop_reason = "arrive to destination"
-     #SUMMARY TRIP 
+#SUMMARY TRIP 
     print("\n" + "="*50)
     print("summary trip")
     print("="*50)
@@ -174,29 +124,26 @@ stop_reason = ""
     print(f"final system health:{system_health}%")
 
     if trip_completed:
-         print("✔️ you have reacherd your destination")
-         car_info['data']["status"]["current_mode"] = "idle"
+        print("✔️ you have reacherd your destination")
+        data["status"]["current_mode"] = "error"
+
     else:
         print("❌ UNFINALISHED trip! the reason unknwon")
-        car_info['data']["status"]["current_mode"] = "error"  
-
-# save hn file jeson
-    try:
-        car_info['data']["battery"]["curent_leval"] = int(current_battery)
-        car_info['data']["engine_temp"]["current_temp"] = current_engine_temp
-        car_info['data']["engine_temp"]["current_air_temp"] = current_air_temp
-        car_info['data']["fluids"]["oil_level"] = oil_level
-        car_info['data']["fluids"]["water_level"] = water_level
-        car_info['data']["system_health"] = system_health
-        car_info['data']["status"]["is_active"] = False
-        
-        file_path = os.path.join(os.path.dirname(__file__), "car_report2_json")
+        data = ["status"]["current_mode"] = "error"  
+# save in file jeson
+        data["battery"]["curent_leval"] = int(current_battery)
+        data["engine_temp"]["current_engine_temp"] = current_temp
+        data["engine_temp"]["current_air_temp"] = current_air_temp
+        data["fluids"]["oil_level"] = oil_level
+        data["fluids"]["water_level"] = water_level
+        data["system_health"] = system_health
+        data["status"]["is_active"] = False   
+    try:                                             
+                  
         with open("file_path", "w") as f:
-            json.dump(car_info['data'], f,indent=4)
+            json.dump(data, f,indent=4)
         print("\n save file in json sucessfully")
     except Exception as e:
-        print(f"\n . error in save file")
-    #RUN the program
-if __name__ == "__main__":
-    main()
+        print("\n error in save file")
+    print("="*50)
 
