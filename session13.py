@@ -235,13 +235,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-
-
-
-
-    current_temp = data["engine_temp"]["current_temp_air"]
-    current_battery = data["battery"]["current_capacity"]
-    oil_level = data["fluids"]["oil_level"]
-    water_level = data["fluids"]["water_level"] 
