@@ -1,7 +1,7 @@
 {
     "car_id": "bot_02",
     "status": {
-        "current_mode": "idle",
+        "current_mode": "error",
         "is_active": true,
         "charging": false
     },
@@ -10,8 +10,9 @@
         "max_capacity": 250,
         "current_level": 85,
         "BATTERY_DROP": 5,
-        "CRETICAL_BATTERY": 20,
-        "unit": "percentage"
+        "CRITICAL_BATTERY": 20,
+        "unit": "percentage",
+        "curent_leval": 0
     },
     "max_spead": 350,
     "engine_temp": {
