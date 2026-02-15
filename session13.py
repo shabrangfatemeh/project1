@@ -1,154 +1,109 @@
 import time
 import json
  
-  #   MAIN PROGRAM
-
+ 
 print("\n" + "="*50)
 print("simulator traveled to car")
 print("="*50)
 
-def load_car_data():
-    try:
-       with open("car_report2_json" "r")as f:
+try:
+    with open("car_report2_json" "r")as f:
         data = json.load(f)
-    except FileNotFoundError:
+except FileNotFoundError:
         print("not found! initializing default data...")
         exit()
-    except json.JSONDecodeError:
+except json.JSONDecodeError:
         print("❌invalid json format")
         exit()    
 # CONFIG JSON
-current_battery =data.get("battery", {}).get("current_level", 85)
+current_battery = data["battery"]["current_level"]
+current_temp = data["engine_temp"]["current_engine_temp"]
+current_air_temp = data["engine_temp"]["current_air_temp"]
+oil_level = data["fluids"]["oil_level"]  
+water_level = data["fluids"]["water_level"]
+max_battery = data["battery"]["max_capacity"]
+critical_battery = data["battery"]["CRITICAL_BATTERY"]
+critical_temp = data["engine_temp"]["CRITICAL_TEMP"]
+battery_drop_rate = 2
+temp_rise_rate = 5
+rev = 100
 
-این هنوز کامل نشده
+print(f"initial battery: {current_battery}%")
+print(f"initial temp: {current_temp}°c")
+print(f"critical battery: {critical_battery}%")
+print(f"critical temp: {critical_temp}°c")    
+# input USER        
+address = input("where is your destination?") 
+stop_way = input("do you have any stope during your trip? : (y/n)").strip().lower()
 
+stop_distance = None
+stop_address = None
 
-
-        car_id = data.get("car_id", "bot_02")
-#status
-        status = data.get("status", {})
-        current_mode = status.get("current_mode", "idle")
-        is_active = status.get("is_active", True)
-        charging = status.get("charging", False)
-# BATTERY         
-        battery = 
-        
-        min_battery = battery.get("min_capacity", 15)
-        max_battery = battery.get("max_capacity",250)
-        battery_drop = battery.get("BATTERY_DROP", 5)
-        critical_battery = battery.get("CRITICAL_BATTERY", 20)
-#ENGINE TEMP
-        engine_temp = data.get("engine_temp", {})
-        current_engine_temp = engine_temp.get("current_engine_temp", engine_temp.get("current_level", 25))        
-        current_air_temp = engine_temp.get("current_air_temp", 25)
-        temp_rise = engine_temp.get("TEMP_RISE", 10)
-        critical_temp = engine_temp.get("CRITICAL_TEMP", 200)
-#FLUIDS
-        fluids = data.get("fluids", {})
-        oil_level = fluids.get("oil_level", 75)
-        water_level = fluids.get("water_level", 90)
-# location
-        location = data.get("location", {})
-        latitude = location.get("latitude", 35.6892)
-        longitude = location.get("longitude", 51.389)
-# system_health
-        system_health = data.get("system_health", 100)
-#erorr                                
-        diagnostics = data.get("diagnostics", {})
-        errors = data.get("errors", {})
-        faults = data.get("faults", {})
-
-        return{
-            "car_id": car_id,
-            "current_mode": current_mode,
-            "is_active": is_active,
-            "charging": charging,
-            "current_battery": current_battery,
-            "min_battery": min_battery,
-            "max_battery": max_battery,
-            "battery_drop": battery_drop,
-            "critical_battery": critical_battery,
-            "current_engine_temp": current_engine_temp,
-            "current_air_temp": current_air_temp,
-            "temp_rise": temp_rise,
-            "critical_temp": critical_temp,
-            "oil_level": oil_level,
-            "water_level": water_level,
-            "latitude": latitude,
-            "longitude": longitude,
-            "system_health": system_health,
-            "errors": errors,
-            "faults": faults,
-            "data": data
-        }
-
+if stop_way in ("yes","y"):
     
-        return None
     
-        return None
-    except Exception as e:
-        print(f"Unknown error: {e}")
-        return None
+    stop_address = input("where do you want to stop?:")
+    stop_distance = int(input("how many (km) do you have to stop?: "))  
+
 #function
-def smart_sensor_battery_temp(current_battery, current_engine_temp, distance_traveled, current_air_temp, battery_drop, temp_rise):
+def smart_sensor_battery_temp(current_battery, current_temp, distance, current_air_temp, rev):
 
-    """ calculate status battery and temp"""
-    try:
+   
 #calculate factors influential
          
-        distance_factor = 1 + distance_traveled * 0.005
-        new_engine_temp = (current_engine_temp + temp_rise + current_air_temp * 0.01)
-        new_battery = current_battery - (battery_drop * distance_factor)
-        return max(new_battery, 0), new_temp
-    except Exception as e:
-        print(f"sensor error: {e}")
-        return current_battery, current_engine_temp
+    distance_factor = 1 + distance * 0.005
+   
+    new_temp = current_temp + temp_rise_rate + (current_air_temp * 0.01) + (rev * 0.01)
+    new_battery = current_battery - (battery_drop_rate * distance_factor * rev)
 
-def calculate_system_health(current_battery, current_engine_temp, oil_level, water_level, max_battery, critical_temp):    
-    """calculate all system health"""
-    temp_factor = max(0, 1 - current_engine_temp / critical_temp) 
+    if new_battery < 0:
+        new_battery = 0
+
+    return new_battery, new_temp
+
+
+def system_health(current_battery, current_engine_temp, oil_level, water_level, max_battery, critical_temp):    
+#calculate all system health
+    temp_factor = max(0, 1 - (current_engine_temp / critical_temp)) 
     battery_factor = current_battery / max_battery 
     fluids_factor =  (oil_level + water_level) / 200      #200 = max_oil + max_water
     system_health = (battery_factor + temp_factor + fluids_factor) / 3 * 100
-    return min(max(int(system_health),0), 100)
+    return min(max(0, min(100,system_health)))
+#start trip
+print("\n"+"="*50)
+print("start trip")
+print("="*50)               
+distance_traveled = 0
+trip_completed = False
+stop_reason = ""
 
-                   
-#load data json
-    car_info = load_car_data()
-    if not car_info:
-        print("program json stop! file chek")
-        return
-    
-#information car show
-    print(f"id: {car_info['car_id']}")
-    print(f"status:{car_info['current_mode']}")
-    print(f"charge:{'yes' if car_info['charging'] else'no'}")
-    print(f"status:{car_info['latitude']},{car_info['longitude']}")
-    print("-"*50)
+
+
+
+
+
+
+
+
+
+
+ 
 
 #information from the user get
-    address = input("where is your destination?")            
+               
     print(f"moving: {address}")
 
-    stop_way = input("do you have any stope during your trip? : (y/n)").strip().lower()
+   
 
-    stop_distance = None
-    stop_address = None
-
-    if stop_way in ("yes","y"):
-        stop_address = input("where do you want to stop?:")
-        try:    
-            stop_distance = int(input("how many (km) do you have to stop?: "))
+    
             if stop_distance < 0:
                 stop_distance = abs(stop_distance)
         except ValueError:
             stop_distance = 5
             print("invalid value, stop set at 5 km")                
-      #start trip
-    print("\n"+"="*50)
-    print("start trip")
-    print("="*50)
-    distance_traveled = 0
+      
+    
+   
     current_battery = car_info['current_battery']
     current_engine_temp = car_info['current_engine_temp']
     current_air_temp = car_info['current_air_temp']
@@ -156,8 +111,7 @@ def calculate_system_health(current_battery, current_engine_temp, oil_level, wat
     water_level = car_info['water_level']
     system_health = car_info['system_health']
 
-    trip_completed = False
-    stop_reason = "unknown"
+    
 
         #LOOP
     while distance_traveled < CarConstants.TOTAL_DISTANCE:
