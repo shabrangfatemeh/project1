@@ -79,7 +79,7 @@ def load_car_data():
         print(f"not file json: {e}")
         return None
     except Exception as e:
-        print(f"Unknown error": {e})
+        print(f"Unknown error: {e}")
         return None
 #function
 def smart_sensor_battery_temp(current_battery, current_engine_temp, distance_traveled, current_air_temp, battery_drop, temp_rise):
@@ -141,7 +141,7 @@ def main():
     print("="*50)
     distance_traveled = 0
     current_battery = car_info['current_battery']
-    current_engine_temp = car_info['current_engine-temp']
+    current_engine_temp = car_info['current_engine_temp']
     current_air_temp = car_info['current_air_temp']
     oil_level = car_info['oil_level']
     water_level = car_info['water_level']
