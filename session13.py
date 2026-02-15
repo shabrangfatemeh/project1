@@ -58,7 +58,7 @@ def load_car_data():
             "max_battery": max_battery,
             "battery_drop": battery_drop,
             "critical_battery": critical_battery,
-            "current_enginy_temp": current_engine_temp,
+            "current_engine_temp": current_engine_temp,
             "current_air_temp": current_air_temp,
             "temp_rise": temp_rise,
             "critical_temp": critical_temp,
