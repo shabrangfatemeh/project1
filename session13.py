@@ -20,7 +20,7 @@ def load_car_data():
 # CONFIG JSON
 current_battery =data.get("battery", {}).get("current_level", 85)
 
-
+این هنوز کامل نشده
 
 
 
