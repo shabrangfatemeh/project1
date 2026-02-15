@@ -1,3 +1,4 @@
+    
 sensor_readings = {"high": 70.1, "very high": 120.8, "normal": 45.7, "low": 20.4, "very low": -5}
 
 sensor_readings["very high"] = 119

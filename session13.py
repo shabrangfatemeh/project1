@@ -1,15 +1,29 @@
 import time
 import json
-import os
-      #fix constants
-class CarConstants:
-    TOTAL_DISTANCE = 10
+ 
+  #   MAIN PROGRAM
+
+print("\n" + "="*50)
+print("simulator traveled to car")
+print("="*50)
 
 def load_car_data():
     try:
-        with open("car_report2_json", "r") as f:
-            data = json.load(f)
+       with open("car_report2_json" "r")as f:
+        data = json.load(f)
+    except FileNotFoundError:
+        print("not found! initializing default data...")
+        exit()
+    except json.JSONDecodeError:
+        print("❌invalid json format")
+        exit()    
 # CONFIG JSON
+current_battery =data.get("battery", {}).get("current_level", 85)
+
+
+
+
+
         car_id = data.get("car_id", "bot_02")
 #status
         status = data.get("status", {})
@@ -17,8 +31,8 @@ def load_car_data():
         is_active = status.get("is_active", True)
         charging = status.get("charging", False)
 # BATTERY         
-        battery = data.get("battery", {})
-        current_battery = battery.get("current_level", 85)
+        battery = 
+        
         min_battery = battery.get("min_capacity", 15)
         max_battery = battery.get("max_capacity",250)
         battery_drop = battery.get("BATTERY_DROP", 5)
@@ -68,11 +82,9 @@ def load_car_data():
             "data": data
         }
 
-    except FileNotFoundError:
-        print("Not file! initializing default data...")
+    
         return None
-    except json.JSONDecodeError:
-        print(f"not file json: {e}")
+    
         return None
     except Exception as e:
         print(f"Unknown error: {e}")
@@ -99,11 +111,7 @@ def calculate_system_health(current_battery, current_engine_temp, oil_level, wat
     fluids_factor =  (oil_level + water_level) / 200      #200 = max_oil + max_water
     system_health = (battery_factor + temp_factor + fluids_factor) / 3 * 100
     return min(max(int(system_health),0), 100)
-  #   MAIN PROGRAM
-def main():
-    print("\n" + "="*50)
-    print("simulator traveled to car")
-    print("="*50)
+
                    
 #load data json
     car_info = load_car_data()
