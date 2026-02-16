@@ -7,7 +7,7 @@ print("simulator traveled to car")
 print("="*50)
 
 try:
-    with open("car_report2_json" "r")as f:
+    with open("car_report2.json", "r")as f:
         data = json.load(f)
 except FileNotFoundError:
         print("not found! initializing default data...")
@@ -24,10 +24,10 @@ water_level = data["fluids"]["water_level"]
 max_battery = data["battery"]["max_capacity"]
 critical_battery = data["battery"]["CRITICAL_BATTERY"]
 critical_temp = data["engine_temp"]["CRITICAL_TEMP"]
-battery_drop_rate = 2
+battery_drop = 2
 temp_rise_rate = 5
 rev = 100
-
+print(data["engine_temp"])
 print(f"initial battery: {current_battery}%")
 print(f"initial temp: {current_temp}°c")
 print(f"critical battery: {critical_battery}%")
@@ -54,7 +54,7 @@ def smart_sensor_battery_temp(current_battery, current_temp, distance, current_a
     distance_factor = 1 + distance * 0.005
    
     new_temp = current_temp + temp_rise_rate + (current_air_temp * 0.01) + (rev * 0.01)
-    new_battery = current_battery - (battery_drop_rate * distance_factor * rev)
+    new_battery = current_battery - (battery_drop * distance_factor * rev)
 
     if new_battery < 0:
         new_battery = 0
@@ -67,29 +67,30 @@ def system_health(current_battery, current_engine_temp, oil_level, water_level, 
     temp_factor = max(0, 1 - (current_engine_temp / critical_temp)) 
     battery_factor = current_battery / max_battery 
     fluids_factor =  (oil_level + water_level) / 200      #200 = max_oil + max_water
-    system_health = (battery_factor + temp_factor + fluids_factor) / 3 * 100
-    return min(max(0, min(100,system_health)))
+    system_health = int(((battery_factor + temp_factor + fluids_factor) / 3) * 100)
+    return max(0, min(100,system_health))
 #start trip
-print("\n"+"="*50)
-print("start trip")
-print("="*50)               
+
+print("\n start trip")              
 distance_traveled = 0
 trip_completed = False
 stop_reason = ""
+TOTAL_DISTANCE = 10
+distance_traveled = +1
    #LOOP
-while distance_traveled < 10:
+while distance_traveled < TOTAL_DISTANCE:
     # UPDATE BATTERY AND TEMP
 
-    current_battery, current_engine_temp = smart_sensor_battery_temp(current_battery, current_temp,
-        distance_traveled, current_air_temp, rev)        
-
-    distance_traveled = +1
+    current_battery = max(0, current_battery - battery_drop)
+    current_temp += 5 + (current_air_temp * 0.01) 
+             
 #calculate SYSTEM_HEALTH
-    system_health = system_health(current_battery, current_engine_temp, oil_level, water_level)
+    
+    health = system_health(current_battery, current_temp, oil_level, water_level, max_battery, critical_temp)
 #show status            
     print(f"\n km: {distance_traveled}")
     print(f"battery: {current_battery:.1f}%")
-    print(f" engine_temp: {current_engine_temp:.1f}°c")
+    print(f" engine_temp: {current_temp:.1f}°c")
     print(f"air_temp: {current_air_temp:.1f}°c")
     print(f"system_health: {system_health}%")
 #warning battery weak
@@ -103,12 +104,10 @@ while distance_traveled < 10:
  # REVIEW stop distance
     if stop_distance and distance_traveled == stop_distance:
         print(f"\n stop: {stop_address}")
-        time.sleep(2)
-        print(" A RELAX SHORT")
-        time.sleep(1)
-        print("continue travel")
+        time.sleep(0.1)
+        
 #review complete trip
-    if distance_traveled == 10:
+    if distance_traveled == TOTAL_DISTANCE:
         trip_completed = True
         stop_reason = "arrive to destination"
 #SUMMARY TRIP 
@@ -120,7 +119,7 @@ while distance_traveled < 10:
         print(f"stop:{stop_address}")
     print(f"distance traveled:{distance_traveled} km")
     print(f"final battery:{current_battery:.1f}%")
-    print(f"final engine temp:{current_engine_temp:.1f}°c")
+    print(f"final engine temp:{current_temp:.1f}°c")
     print(f"final system health:{system_health}%")
 
     if trip_completed:
@@ -129,7 +128,7 @@ while distance_traveled < 10:
 
     else:
         print("❌ UNFINALISHED trip! the reason unknwon")
-        data = ["status"]["current_mode"] = "error"  
+        data["status"]["current_mode"] = "error"  
 # save in file jeson
         data["battery"]["curent_leval"] = int(current_battery)
         data["engine_temp"]["current_engine_temp"] = current_temp
@@ -140,7 +139,7 @@ while distance_traveled < 10:
         data["status"]["is_active"] = False   
     try:                                             
                   
-        with open("file_path", "w") as f:
+        with open("car_report2.json", "w") as f:
             json.dump(data, f,indent=4)
         print("\n save file in json sucessfully")
     except Exception as e:
