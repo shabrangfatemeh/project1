@@ -123,6 +123,7 @@ while distance_traveled < TOTAL_DISTANCE:
     print(f"final system health:{system_health}%")
 
     if trip_completed:
+
         print("✔️ you have reacherd your destination")
         data["status"]["current_mode"] = "error"
 

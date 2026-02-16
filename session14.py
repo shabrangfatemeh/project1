@@ -1,28 +1,39 @@
- MAX_BATTERY = 200
-    MIN_BATTERY = 10
-    CRITICAL_BATTERY = 20
-    MAX_TEMP = 150
-    MAX_OIL = 100
-    MAX_WATER = 100
-
-
-
-#fix constants
-class CarConstants:
-    BATTRY_DROP_RATE = 5
-    CRITICAL_BATTERY = 20
-    CRITICAL_TEMP = 200
-    TEMP_RISE_RATY = 10
-    MAX_SPEED = 350
-    TOTAL_DISTANCE = 10
-
-
-if distance_traveled >= CarConstants.TOTAL_DISTANCE:
-   
-   car_info['data']["status"]["current_mode"] = "idle"
-    elif current_battery <= 0:
-        print("❌ UNFINALISHED trip! finish battery")
-        car_info['data']["status"]["current_mode"] = "error"
-    elif current_engine_temp >= car_info['critical_temp']:
-        print("❌ UNFINALISHED trip! over the limit engine temp")
-        car_info['data']["status"]["current_mode"] = "error"
+{
+    "car_id": "bot_02",
+    "status": {
+        "current_mode": "error",
+        "is_active": true,
+        "charging": false
+    },
+    "battery": {
+        "min_capacity": 0,
+        "max_capacity": 250,
+        "current_level": 85,
+        "BATTERY_DROP": 5,
+        "CRITICAL_BATTERY": 20,
+        "unit": "percentage",
+        "curent_leval": 0
+    },
+    "max_spead": 350,
+    "engine_temp": {
+        "MAX_TEMP": 10,
+        "TEMP_RISE": 10,
+        "CRITICAL_TEMP": 200,
+        "current_temp": 60,
+        "current_air_temp": 17,
+        "current_engine_temp": 60
+    },
+    "fluids": {
+        "oil_level": 75,
+        "water_level": 90
+    },
+    "location": {
+        "latitude": 35.6892,
+        "longitude": 51.389,
+        "last_updated": "2026-01-03 16:24:54"
+    },
+    "diagnostics": {
+        "errors": []
+    },
+    "faults": [],
+    "system_health":       
