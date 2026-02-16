@@ -2,7 +2,7 @@
     "car_id": "bot_02",
     "status": {
         "current_mode": "error",
-        "is_active": true,
+        "is_active": false,
         "charging": false
     },
     "battery": {
@@ -12,7 +12,7 @@
         "BATTERY_DROP": 5,
         "CRITICAL_BATTERY": 20,
         "unit": "percentage",
-        "curent_leval": 0
+        "curent_leval": 31
     },
     "max_spead": 350,
     "engine_temp": {
@@ -20,7 +20,7 @@
         "TEMP_RISE": 10,
         "CRITICAL_TEMP": 200,
         "current_air_temp": 17,
-        "current_engine_temp": 60
+        "current_engine_temp": 199.58999999999986
     },
     "fluids": {
         "oil_level": 75,
@@ -35,5 +35,4 @@
         "errors": []
     },
     "faults": [],
-    "system_health": []
-}
+    "system_health": 
