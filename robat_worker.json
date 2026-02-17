@@ -1,0 +1,632 @@
+{
+    "worker_01": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 70
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 30
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 40,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 30
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 30
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 20
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 20
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 130,
+            "max_voltage": 200,
+            "max_current": 160
+        },
+        "humidity": {
+            "current_humidity": 20,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 10,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_02": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 30
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 50
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 10,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 5
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 20
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 38
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 15
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 120,
+            "max_voltage": 200,
+            "max_current": 160
+        },
+        "humidity": {
+            "current_humidity": 10,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 9,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_03": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 45
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 55
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 70,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 25
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 45
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 35
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 1
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 120,
+            "max_voltage": 200,
+            "max_current": 170
+        },
+        "humidity": {
+            "current_humidity": 30,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 8,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_04": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 40
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 17
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 70,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 10
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 10
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 28
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 24
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 110,
+            "max_voltage": 200,
+            "max_current": 150
+        },
+        "humidity": {
+            "current_humidity": 15,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 5,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_05": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 50
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 48
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 100,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 16
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 5
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 19
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 30
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 90,
+            "max_voltage": 200,
+            "max_current": 100
+        },
+        "humidity": {
+            "current_humidity": 19,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 3,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_06": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 24
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 77
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 79,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 15
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 12
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 39
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 34
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 110,
+            "max_voltage": 200,
+            "max_current": 130
+        },
+        "humidity": {
+            "current_humidity": 5,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 20,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_07": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 100
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 10
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 145,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 40
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 49
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 37
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 32
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 100,
+            "max_voltage": 200,
+            "max_current": 110
+        },
+        "humidity": {
+            "current_humidity": 31,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 14,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_08": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 20
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 79
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 50,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 20
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 25
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 20
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 20
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 80,
+            "max_voltage": 200,
+            "max_current": 160
+        },
+        "humidity": {
+            "current_humidity": 22,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 5,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_09": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 78
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 54
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 73,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 29
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 10
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 38
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 39
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 180,
+            "max_voltage": 200,
+            "max_current": 200
+        },
+        "humidity": {
+            "current_humidity": 20,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 10,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    },
+    "worker_10": {
+        "battry": {
+            "max_capacity": 100,
+            "min_capacity": 5,
+            "current_battery": 20
+        },
+        "temp": {
+            "max_temp": 90,
+            "temp_rise": 5,
+            "current_temp": 30
+        },
+        "stress": {
+            "max_capacity": 150,
+            "current_load": 133,
+            "duration": 20,
+            "threshold_warning": 145
+        },
+        "oil": {
+            "min_oil": 2,
+            "max_oil": 40,
+            "current_oil": 30
+        },
+        "vibration": {
+            "max_vibration": 50,
+            "current_vibration": 30
+        },
+        "arm_speed": {
+            "max_arm_speed": 40,
+            "current_arm_speed": 35
+        },
+        "position": {
+            "pocition": [
+                12.5,
+                7.5,
+                0.0
+            ],
+            "location": [
+                35.6892,
+                51.3890
+            ]
+        },
+        "payload": {
+            "max_payload": 40,
+            "min_payload": 0.5,
+            "current_payload": 20
+        },
+        "electrical": {
+            "voltage": 150,
+            "current": 130,
+            "max_voltage": 200,
+            "max_current": 160
+        },
+        "humidity": {
+            "current_humidity": 17,
+            "max_humidity": 45,
+            "min_humidity": 5
+        },
+        "cpu": {
+            "current_cpu": 10,
+            "max_capacity": 1,
+            "latency": 1
+        }
+    }
+}
